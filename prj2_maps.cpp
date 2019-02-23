@@ -40,7 +40,7 @@ void parse_file_to_txt(string filename)
 				cout << "Line is empty!" << endl;
 			}
 		}
-		return onp.close();
+		onp.close();
 	}
 	else
 	{

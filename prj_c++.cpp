@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 						if (line[i] != ' ')
 						{
 
-							l_tmp->push_back(atoi(ss >>));
+							l_tmp->push_back(atoi(&line[i]));
 						}
 					}
 					outer_list.push_back(l_tmp);

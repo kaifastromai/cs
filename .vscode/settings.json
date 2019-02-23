@@ -1,0 +1,10 @@
+{
+    "clang.executable": "C:\\\\dev\\\\bin\\\\clang.exe",
+    "files.associations": {
+        "iostream": "cpp",
+        "string": "cpp",
+        "ostream": "cpp",
+        "list": "cpp",
+        "istream": "cpp"
+    }
+}

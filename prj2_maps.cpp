@@ -8,19 +8,24 @@
 using namespace std;
 
 //parses a file by spliting on all punctuation/spaces/tabs/endlines and then sends to a txt doc line by line.
-string parse_file_to_txt(string filename)
+void parse_file_to_txt(string filename)
 {
 	ifstream inp;
 	ofstream onp;
 	onp.open("output.txt");
-	inp.open(filename);
+	if (!filename.empty())
+	{
+		inp.open(filename);
+	}
+
 	if (inp.is_open())
 	{
-		for (string line; getline(inp, line);)
+		string line = "";
+		for (line; getline(inp, line);)
 		{
 			if (!line.empty())
 			{
-				string word;
+				string word = "";
 				for (stringstream ss; ss >> word;)
 				{
 					stringstream s;
@@ -33,7 +38,7 @@ string parse_file_to_txt(string filename)
 				}
 			}
 		}
-		onp.close();
+		return onp.close();
 	}
 	else
 	{

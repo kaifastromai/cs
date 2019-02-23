@@ -20,16 +20,20 @@ string parse_file_to_txt(string filename)
 		{
 			if (!line.empty())
 			{
-				for (string::iterator i = line.begin(); i <= line.end() - 1; i++)
+				string word;
+				for (stringstream ss; ss >> word;)
 				{
-					if (!ispunct(line.at(*i)) && !ispunct(line.at(*i + 1)))
+					stringstream s;
+
+					for (char c : word)
 					{
-						onp << line.at(*i);
+						s << c;
 					}
-					onp << endl;
+					onp << s.str();
 				}
 			}
 		}
+		onp.close();
 	}
 	else
 	{
@@ -44,6 +48,7 @@ int main(int argc, char *argv[])
 	if (argc > 1)
 	{
 		parse_file_to_txt(argv[2]);
+		cout << "entered main" << endl;
 	}
 
 	else

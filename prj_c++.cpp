@@ -35,20 +35,25 @@ int main(int argc, char *argv[])
 		inp.open(argv[1]);
 		if (inp.is_open())
 		{
-			for (string line; getline(inp, line);)
+			string line;
+			while (getline(inp, line))
 			{
+
+				stringstream ss;
+				ss << line;
+
 				if (!line.empty())
 				{
 					list<int> *l_tmp = new list<int>;
 					listCounter++;
-					for (int i = 0; i < line.size(); i++)
+					int i = 0;
+					for (ss; ss >> i;)
 					{
-						if (line[i] != ' ')
-						{
-
-							l_tmp->push_back(atoi(&line[i]));
-						}
+						l_tmp->push_back(i);
+						cout << "Go around: " << listCounter << "Int: " << i << endl;
+						i = 0;
 					}
+
 					outer_list.push_back(l_tmp);
 				}
 			}

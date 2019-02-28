@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 					for (ss; ss >> i;)
 					{
 						l_tmp->push_back(i);
-						cout << "Go around: " << listCounter << "Int: " << i << endl;
+						//cout << "Go around: " << listCounter << "Int: " << i << endl;
 						i = 0;
 					}
 

@@ -10,7 +10,7 @@ class storm_lib
         s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) {
                     return !std::isspace(ch);
                 }));
-    }
+    };
 
     // trim from end (in place)
     static inline void rtrim(std::string &s)
@@ -20,13 +20,15 @@ class storm_lib
                 })
                     .base(),
                 s.end());
-    }
+    };
 
     // trim from both ends (in place)
-    static inline string trim(std::string &s)
+    static inline std::string trim(std::string &s)
     {
+        std::string ins;
         ltrim(s);
         rtrim(s);
-        return s;
-    }
-}
+        ins = s;
+        return ins;
+    };
+};

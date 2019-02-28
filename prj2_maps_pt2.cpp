@@ -6,6 +6,7 @@
 #include <chrono>
 #include <map>
 #include "./storm_lib.h"
+#include <climits>
 using namespace std;
 class Node
 {
@@ -59,84 +60,100 @@ vector<string> readfile(string filename)
     inp.close();
     return invec;
 }
+std::string getCmdOutput(const std::string &mStr)
+{
+    std::string result, file;
+    FILE *pipe{popen(mStr.c_str(), "r")};
+    char buffer[256];
 
+    while (fgets(buffer, sizeof(buffer), pipe) != NULL)
+    {
+        file = buffer;
+        result += file.substr(0, file.size() - 1);
+    }
+
+    pclose(pipe);
+    return result;
+};
 int main(int argc, char *argv[])
 {
+    stringstream cmd;
     map<string, Node *> words;
     if (argc > 1)
     {
-        if (argc < 2)
+        bool is_case_sensitive = true;
+        int i = 1;
+        for (string s : readfile(argv[1]))
         {
 
-            bool is_case_sensitive = true;
-            if (storm_lib::trim((string)argv[2]) == "-case-sensitive" || storm_lib::trim((string)argv[2]) == "-cs")
-            {
-                cout << "Case sensitive mode activated!" << endl;
-                is_case_sensitive = true;
-            }
-            if (storm_lib::trim((string)argv[2]) == "-not-sensitive" || storm_lib::trim((string)argv[2]) == "-ns")
-            {
-                is_case_sensitive = false;
-            }
-            int i = 1;
-            for (string s : readfile(argv[1]))
-            {
+            storm_lib::rtrim(s);
 
-                storm_lib::rtrim(s);
-                Node *n = new Node();
-                if (is_case_sensitive)
-                {
-                    n->is_majorCase = isupper(s[0]);
-                }
-                else
-                {
-                    for (char c : s)
-                    {
-                        tolower(c);
-                    }
-                }
-                n->appears_on_lines.push_back(i);
-                n->str = s;
-                auto p = words.insert(make_pair(s, n));
-                if (!p.second)
-                {
-                    p.first->second->frequency++;
-                    p.first->second->appears_on_lines.push_back(i);
-                    //cout << "We found multiples of: " << p.first->second->str << endl;
-                }
-                i++;
-            }
-            string instr;
-            while (!(instr[0] == 'q'))
+            Node *n = new Node();
+            n->is_majorCase = isupper(s[0]);
+            n->appears_on_lines.push_back(i);
+            n->str = s;
+            auto p = words.insert(make_pair(s, n));
+            if (!p.second)
             {
+                p.first->second->frequency++;
+                p.first->second->appears_on_lines.push_back(i);
+                //cout << "We found multiples of: " << p.first->second->str << endl;
+            }
+            i++;
+        }
+        string instr;
+        while (instr != "quit")
+        {
 
-                cout << "Enter a word (case sensitive): ";
-                string s;
-                cin >> s;
-                instr = s;
-                trim(instr);
-                if (!isalpha(instr[0]) && !isdigit(instr[0]))
+            cout << "Enter a word(" << ((is_case_sensitive) ? "case-sensitive): " : "not case-sensitive): ");
+            getline(cin, instr);
+            if (instr.empty())
+            {
+                cerr << "You must enter a word!" << endl;
+                continue;
+            }
+            storm_lib::trim(instr);
+            if (!isalpha(instr[0]) && !isdigit(instr[0]))
+            {
+                break;
+            }
+            //cout << instr << endl;
+            if (!is_case_sensitive)
+            {
+                int i = 0;
+                for (char c : instr)
                 {
-                    break;
+                    instr[i] = tolower(c);
+                    i++;
                 }
-                cout << instr << endl;
-                if (is_case_sensitive)
+            }
+
+            if (words.find(instr) != words.end())
+            {
+                auto it = words.find(instr);
+                cout << (string)(*(it->second)) << endl;
+                cout << "would you like to open the first occurrence in vscode? (No): ";
+
+                string option;
+                getline(std::cin, option);
+                if (storm_lib::trim(option) == "no" || option.empty())
                 {
-                    for (char c : instr)
-                    {
-                        tolower(c);
-                    }
+                    cout << "will not open file. Continuing with program..." << endl;
                 }
 
-                if (words.find(instr) != words.end())
+                else if (!option.empty() || option == "yes")
                 {
-                    auto it = words.find(instr);
-                    cout << (string)(*(it->second)) << endl;
+                    cout << "opening " << argv[1] << " at line " << it->second->appears_on_lines[0] << endl;
+                    cmd << R"(code-insiders --goto )"
+                        << argv[1]
+                        << ":" << it->second->appears_on_lines[0] << ":1";
+                    getCmdOutput(cmd.str());
+                    cmd.str(std::string());
                 }
-                else
-                {
-                    cout << "Could not locate: " << instr << endl;
-                }
+            }
+            else
+            {
+                cout << "Could not locate: " << instr << endl;
             }
         }
     }

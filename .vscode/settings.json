@@ -48,6 +48,17 @@
         "algorithm": "cpp",
         "ctime": "cpp",
         "map": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "array": "cpp",
+        "*.tcc": "cpp",
+        "clocale": "cpp",
+        "cwctype": "cpp",
+        "deque": "cpp",
+        "unordered_map": "cpp",
+        "numeric": "cpp",
+        "optional": "cpp",
+        "string_view": "cpp",
+        "__config": "cpp",
+        "__nullptr": "cpp"
     }
 }

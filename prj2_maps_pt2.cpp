@@ -3,10 +3,11 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <chrono>
 #include <map>
 #include "./storm_lib.h"
 #include <climits>
+#include <stdio.h>
+#include <unistd>
 using namespace std;
 class Node
 {
@@ -24,6 +25,7 @@ class Node
     }
     int frequency;
     vector<int> appears_on_lines;
+    //Overload cast to std::string()
     operator string()
     {
         s << str << " "
@@ -45,8 +47,8 @@ class Node
         return s.str();
     }
 };
-
-vector<string> readfile(string filename)
+//File words stored in vector so we can clean it up later
+pair<vector<string>, bool> readfile(string filename)
 {
     vector<string> invec;
     ifstream inp(filename);
@@ -57,107 +59,109 @@ vector<string> readfile(string filename)
             invec.push_back(line);
         }
     }
-    inp.close();
-    return invec;
-}
-std::string getCmdOutput(const std::string &mStr)
-{
-    std::string result, file;
-    FILE *pipe{popen(mStr.c_str(), "r")};
-    char buffer[256];
-
-    while (fgets(buffer, sizeof(buffer), pipe) != NULL)
+    else
     {
-        file = buffer;
-        result += file.substr(0, file.size() - 1);
+        return make_pair(invec, false);
     }
-
-    pclose(pipe);
-    return result;
-};
+    inp.close();
+    return make_pair(invec, true);
+}
+//Entry point
 int main(int argc, char *argv[])
 {
     stringstream cmd;
     map<string, Node *> words;
+    auto readFileResult = readfile(argv[1]);
+    bool isValidFileName = readFileResult.second;
+    //Make sure we have the cli arguments!
     if (argc > 1)
     {
-        bool is_case_sensitive = true;
-        int i = 1;
-        for (string s : readfile(argv[1]))
+        getO
+        bool isInteractive = true;
+        bool isVerbose = true;
+        if (argc > 3)
         {
+            string argv_2(argv[2]);
+            string argv_3(argv[3]);
+            if (argv_2 == "-ni" || argv_2 == "-non-interactive")
+            {
+                cout << "Non-interactive mode engagdged" << endl;
+                bool isInteractive = false;
 
-            storm_lib::rtrim(s);
-
-            Node *n = new Node();
-            n->is_majorCase = isupper(s[0]);
-            n->appears_on_lines.push_back(i);
-            n->str = s;
-            auto p = words.insert(make_pair(s, n));
-            if (!p.second)
-            {
-                p.first->second->frequency++;
-                p.first->second->appears_on_lines.push_back(i);
-                //cout << "We found multiples of: " << p.first->second->str << endl;
-            }
-            i++;
-        }
-        string instr;
-        while (instr != "quit")
-        {
-
-            cout << "Enter a word(" << ((is_case_sensitive) ? "case-sensitive): " : "not case-sensitive): ");
-            getline(cin, instr);
-            if (instr.empty())
-            {
-                cerr << "You must enter a word!" << endl;
-                continue;
-            }
-            storm_lib::trim(instr);
-            if (!isalpha(instr[0]) && !isdigit(instr[0]))
-            {
-                break;
-            }
-            //cout << instr << endl;
-            if (!is_case_sensitive)
-            {
-                int i = 0;
-                for (char c : instr)
+                if (argv_3 == "-nv" || argv_3 == "-non-verbose")
                 {
-                    instr[i] = tolower(c);
-                    i++;
+                    cout << "Non-verbose mode engadged" << endl;
+                    bool isVerbose = false;
                 }
-            }
-
-            if (words.find(instr) != words.end())
-            {
-                auto it = words.find(instr);
-                cout << (string)(*(it->second)) << endl;
-                cout << "would you like to open the first occurrence in vscode? (No): ";
-
-                string option;
-                getline(std::cin, option);
-                if (storm_lib::trim(option) == "no" || option.empty())
-                {
-                    cout << "will not open file. Continuing with program..." << endl;
-                }
-
-                else if (!option.empty() || option == "yes")
-                {
-                    cout << "opening " << argv[1] << " at line " << it->second->appears_on_lines[0] << endl;
-                    cmd << R"(code-insiders --goto )"
-                        << argv[1]
-                        << ":" << it->second->appears_on_lines[0] << ":1";
-                    getCmdOutput(cmd.str());
-                    cmd.str(std::string());
-                }
-            }
-            else
-            {
-                cout << "Could not locate: " << instr << endl;
             }
         }
+        else
+        {
+            cout << "More args please" << endl;
+        }
+
+        /*  if (isValidFileName)
+        {
+            bool is_case_sensitive = true;
+            int i = 1;
+            for (string s : readFileResult.first)
+            {
+
+                storm_lib::rtrim(s);
+
+                Node *n = new Node();
+                n->is_majorCase = isupper(s[0]);
+                n->appears_on_lines.push_back(i);
+                n->str = s;
+                auto p = words.insert(make_pair(s, n));
+                if (!p.second)
+                {
+                    p.first->second->frequency++;
+                    p.first->second->appears_on_lines.push_back(i);
+                    //cout << "We found multiples of: " << p.first->second->str << endl;
+                }
+                i++;
+            }
+            string instr;
+            while (!cin.eof())
+            {
+
+                cout << "Enter a word(" << ((is_case_sensitive) ? "case-sensitive): " : "not case-sensitive): ");
+                getline(cin, instr);
+                if (instr.empty() && !cin.eof())
+                {
+                    cerr << "You must enter a word!" << endl;
+                    continue;
+                }
+                //Make sure that no code is executed if we have an eof
+                else if (cin.eof())
+                {
+                    cout << endl;
+                    break;
+                }
+                //Verify there are no extra spaces at the end or the beginning
+                storm_lib::trim(instr);
+                //Check if the iterator is not at the end of the words map
+                if (words.find(instr) != words.end())
+                {
+                    auto it = words.find(instr);
+                    cout << (string)(*(it->second)) << endl;
+                }
+                //The given word does not appear in the map
+                else
+                {
+
+                    cout << "Could not locate: " << instr << endl;
+                }
+            }
+        }
+        //File not readable
+        else
+        {
+            cout << "Could not open: " << argv[1] << endl;
+        } */
     }
-
+    //File not named
     else
     {
         cout << "Must provide name of input file." << endl;

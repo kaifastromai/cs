@@ -7,7 +7,7 @@
 #include "./storm_lib.h"
 #include <climits>
 #include <stdio.h>
-#include <unistd>
+
 using namespace std;
 class Node
 {
@@ -25,12 +25,18 @@ class Node
     }
     int frequency;
     vector<int> appears_on_lines;
+    //overload conparison operator to work with map
+    bool operator<(const Node &otherInstance) const
+    {
+        return (frequency >= otherInstance.frequency) ? true : false;
+    }
+    int init;
     //Overload cast to std::string()
     operator string()
     {
         s << str << " "
           << "found " << ((frequency == 1) ? "once on line:" : to_string(frequency) + " times on lines:") << endl;
-        int i = 0;
+        uint32_t i = 0;
         for (auto item : appears_on_lines)
         {
             if (i != appears_on_lines.size() - 1)
@@ -69,39 +75,18 @@ pair<vector<string>, bool> readfile(string filename)
 //Entry point
 int main(int argc, char *argv[])
 {
-    stringstream cmd;
-    map<string, Node *> words;
-    auto readFileResult = readfile(argv[1]);
-    bool isValidFileName = readFileResult.second;
-    //Make sure we have the cli arguments!
     if (argc > 1)
     {
-        getO
-        bool isInteractive = true;
-        bool isVerbose = true;
-        if (argc > 3)
-        {
-            string argv_2(argv[2]);
-            string argv_3(argv[3]);
-            if (argv_2 == "-ni" || argv_2 == "-non-interactive")
-            {
-                cout << "Non-interactive mode engagdged" << endl;
-                bool isInteractive = false;
 
-                if (argv_3 == "-nv" || argv_3 == "-non-verbose")
-                {
-                    cout << "Non-verbose mode engadged" << endl;
-                    bool isVerbose = false;
-                }
-            }
-        }
-        else
-        {
-            cout << "More args please" << endl;
-        }
+        map<string, Node *> words;
+        auto readFileResult = readfile(argv[1]);
+        bool isValidFileName = readFileResult.second;
+        //Make sure we have the cli arguments!
 
-        /*  if (isValidFileName)
+        if (isValidFileName)
         {
+            vector<Node *> node_ptrs;
+
             bool is_case_sensitive = true;
             int i = 1;
             for (string s : readFileResult.first)
@@ -113,6 +98,7 @@ int main(int argc, char *argv[])
                 n->is_majorCase = isupper(s[0]);
                 n->appears_on_lines.push_back(i);
                 n->str = s;
+                node_ptrs.push_back(n);
                 auto p = words.insert(make_pair(s, n));
                 if (!p.second)
                 {
@@ -154,12 +140,16 @@ int main(int argc, char *argv[])
                     cout << "Could not locate: " << instr << endl;
                 }
             }
+            for (auto nd : node_ptrs)
+            {
+                delete nd;
+            }
         }
         //File not readable
         else
         {
             cout << "Could not open: " << argv[1] << endl;
-        } */
+        }
     }
     //File not named
     else

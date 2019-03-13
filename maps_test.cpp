@@ -5,38 +5,58 @@
 #include <utility>
 #include <iostream>
 using namespace std;
-class n
+class Node
 {
   public:
+    bool operator<(const Node &otherInstance) const;
     int init;
-    n(){};
+    Node();
 };
 
 int main()
 {
-    map<n *, string> mp;
+    map<Node, string> mp;
     string s;
     srand((unsigned int)time(nullptr));
     for (int i = 0; i < 10; i++)
     {
+
         int t = rand();
-        mp.emplace(new n, to_string(t));
+        Node n;
+        pair<string, Node> p = make_pair("hello", n);
+        mp.emplace(p);
     }
     /*  for (auto it = mp.begin(); it != mp.end(); ++it)
-    {
-        //cout << it->first << " " << it->second << endl;
-    } */
+	{
+		//cout << it->first << " " << it->second << endl;
+	} */
 
     int input = 0;
     /*  while (input >= 0)
+	{
+		cout << "enter a number to look for: " << endl;
+		cin >> input;
+		if (input < 0)
+			break;
+		if (mp.count(input) > 0)
+		{
+			cout << "found it" << endl;
+		}
+	} */
+}
+
+bool Node::operator<(const Node &otherInstance) const
+{
+    if (init > otherInstance.init)
     {
-        cout << "enter a number to look for: " << endl;
-        cin >> input;
-        if (input < 0)
-            break;
-        if (mp.count(input) > 0)
-        {
-            cout << "found it" << endl;
-        }
-    } */
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+Node::Node()
+{
 }

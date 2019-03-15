@@ -59,6 +59,9 @@
         "optional": "cpp",
         "string_view": "cpp",
         "__config": "cpp",
-        "__nullptr": "cpp"
+        "__nullptr": "cpp",
+        "atomic": "cpp",
+        "mutex": "cpp",
+        "thread": "cpp"
     }
 }

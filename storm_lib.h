@@ -2,11 +2,13 @@
 #include <string>
 #include <cctype>
 #include <algorithm>
+#include <map>
 class storm_lib
 {
   public:
     static inline void ltrim(std::string &s)
     {
+        std::map<int, int> in;
         s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) {
                     return !std::isspace(ch);
                 }));

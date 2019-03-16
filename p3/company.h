@@ -18,8 +18,9 @@ public:
   static bool get_companies(std::map<std::string, company> &c_map, const char *filename);
   std::string id,
       name, state, address, city, zip;
+  float total_purchases;
   operator std::string()
   {
-    return name + ", " + state + ", " + address + ", " + city + ", " + zip;
+    return id + ", " + name + ", " + state + ", " + address + ", " + city + ", " + zip;
   }
 };

@@ -6,17 +6,20 @@
 #include <list>
 #include <map>
 #include "company.h"
+#include "purchase.h"
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-    while (argc == 2)
+    if (argc > 2)
     {
         cout.imbue(std::locale(""));
-        map<int32_t, string> idToDetails;
+        multimap<string, company> idToTransactions;
         map<string, company> idToCompany;
+        map<string, string> nameToId;
         company::get_companies(idToCompany, argv[1]);
-        cout << (string)idToCompany.at("00000000") << endl;
+        purchase::get_purchases(idToTransactions, argv[2]);
+        cout << (string)(idToTransactions.find("00000000"))->second << endl;
     }
 }

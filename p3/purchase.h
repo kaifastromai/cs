@@ -17,11 +17,12 @@ public:
   std::string company_id, invoice, transaction_date;
   float amount;
 
-  static void purchase::get_total_purchases(company &c, std::multimap<std::string, purchase> &idToPurchase);
-  static bool get_purchases(std::multimap<std::string, company> &idToTransaction, const char *dataFile);
+  static void get_total_purchases(company &c, std::multimap<std::string, purchase> &idToPurchase);
+  static bool get_purchases(std::multimap<std::string, purchase> &idToPurchase, const char *dataFile);
 
   operator std::string()
   {
-    return company_id + ", " + invoice + ", " + transaction_date;
+    return company_id + ", " + invoice + ", " + transaction_date + ", " + std::to_string(amount);
+    ;
   }
 };

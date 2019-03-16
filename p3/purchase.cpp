@@ -12,7 +12,7 @@ void purchase::get_total_purchases(company &c, std::multimap<std::string, purcha
 		c.total_purchases += it->second.amount;
 	}
 }
-bool get_purchases(std::multimap<std::string, purchase> &idToPurchase, const char *dataFile)
+bool purchase::get_purchases(std::multimap<std::string, purchase> &idToPurchase, const char *dataFile)
 {
 	ifstream inp(dataFile);
 	if (inp.is_open())

@@ -39288,23 +39288,55 @@ public:
   static bool get_companies(std::map<std::string, company> &c_map, const char *filename);
   std::string id,
       name, state, address, city, zip;
+  float total_purchases;
   operator std::string()
   {
     return id + ", " + name + ", " + state + ", " + address + ", " + city + ", " + zip;
   }
 };
 # 9 "/home/kaifas/dev/computer-science/p3/prj3.cpp" 2
+# 1 "/home/kaifas/dev/computer-science/p3/purchase.h" 1
+       
+
+
+
+
+class purchase
+{
+public:
+  purchase();
+  purchase(std::string company_id, std::string invoice, std::string transaction_date, float amount)
+  {
+    this->company_id = company_id;
+    this->invoice = invoice;
+    this->transaction_date = transaction_date;
+    this->amount = amount;
+  }
+  std::string company_id, invoice, transaction_date;
+  float amount;
+
+  static void get_total_purchases(company &c, std::multimap<std::string, purchase> &idToPurchase);
+  static bool get_purchases(std::multimap<std::string, purchase> &idToPurchase, const char *dataFile);
+
+  operator std::string()
+  {
+    return company_id + ", " + invoice + ", " + transaction_date;
+  }
+};
+# 10 "/home/kaifas/dev/computer-science/p3/prj3.cpp" 2
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-    if (argc == 2)
+    if (argc > 2)
     {
         cout.imbue(std::locale(""));
-        map<int32_t, string> idToDetails;
+        multimap<string, purchase> idToTransactions;
         map<string, company> idToCompany;
+        map<string, string> nameToId;
         company::get_companies(idToCompany, argv[1]);
-        cout << (string)idToCompany.at("00000000") << endl;
+        purchase::get_purchases(idToTransactions, argv[2]);
+        cout << (string)(idToTransactions.find("00000000"))->second << endl;
     }
 }

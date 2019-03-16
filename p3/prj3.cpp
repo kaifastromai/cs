@@ -49,6 +49,7 @@ int main(int argc, char *argv[])
             purchase::get_total_purchases(it->second, idToTransactions);
             nameToId.emplace((it->second).name, (it->second).id);
         }
+        //Create a vector of reports for each company. We store them in case we need them later
         for (auto it2 = nameToId.begin(); it2 != nameToId.end(); it2++)
         {
             auto company = idToCompany.at(it2->second);
@@ -58,8 +59,24 @@ int main(int argc, char *argv[])
                                      company.purchases,
                                      company.total_spent));
         }
-        cout << "We made it to hear" << endl;
-        cout << (string)reports[0] << endl;
+        cout.imbue(locale(""));
+        cout << std::fixed << std::setprecision(2);
+        cout.width(10);
+        cout << left << "ID:";
+        cout.width(40);
+        cout << "Name:";
+        cout.width(12);
+        cout << "State:";
+        cout.width(15);
+        cout << "Purchases:";
+        cout.width(15);
+        cout << "Total:" << endl;
+        for (auto rp : reports)
+        {
+            cout << (string)rp << endl;
+        }
+
+        //cout << (string)reports[0] << endl;
     }
     //Check for errors relating to the command line
     else if (argc == 1)

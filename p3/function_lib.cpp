@@ -22,6 +22,3 @@ void function_lib::Split(std::vector<std::string> &tokens, std::string &line, st
         tokens.push_back(line);
     }
 };
-void function_lib::map_from_csv(std::map<std::string, int32_t> &m){
-
-};

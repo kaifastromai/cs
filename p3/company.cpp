@@ -7,7 +7,6 @@
 using namespace std;
 bool company::get_companies(std::map<std::string, company> &c_map, const char *filename)
 {
-
     stringstream ss;
     string line;
 
@@ -19,6 +18,11 @@ bool company::get_companies(std::map<std::string, company> &c_map, const char *f
         {
             vector<string> tokens;
             function_lib::Split(tokens, line, ",");
+            if (tokens.size() != 6)
+            {
+                //cout << "we are false!" << endl;
+                return false;
+            }
             c_map.emplace(tokens[0], company(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], tokens[5]));
             i++;
         }

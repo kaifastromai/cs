@@ -6,11 +6,10 @@
 class function_lib
 {
 public:
+  //Split a string via a delimeter and push_back the substrings intro a string vector array (by reference)
   static void Split(std::vector<std::string> &tokens, std::string &line, std::string delimeter);
-  static void map_from_csv(std::map<std::string, int32_t> &m);
-  static void map_from_csv(std::map<int32_t, std::string> &m);
-  static void multimap_from_csv();
 
+  //Cast a float to a string safely
   static bool SafeFloatFromString(std::string &input, float &v)
   {
     bool retval = true;

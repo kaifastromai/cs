@@ -1,0 +1,5 @@
+#Visual studio
+*.out
+*.ipch
+.vscode/
+*.obj

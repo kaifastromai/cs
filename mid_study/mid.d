@@ -1,1 +1,0 @@
-mid.o: mid.cpp

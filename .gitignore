@@ -3,3 +3,4 @@
 *.ipch
 .vscode/
 *.obj
+zip/

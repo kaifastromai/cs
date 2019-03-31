@@ -23,7 +23,7 @@ public:
   void SetForce(float x, float y);
   void SetFrame(int f);
   virtual void Draw();
-  //virtual void Step(std::vector<Rocket *> &v);
+  //virtual void Step(std::vector<Rocket *> &v);``
   virtual void Step();
 
   //virtual void Trigger(std::vector<Rocket *> &v);

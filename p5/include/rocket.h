@@ -38,7 +38,7 @@ public:
   static void Log(const std::stringstream &message);
   inline static std::ofstream *log;
 
-protected:
+public:
   int age;
   int age_limit;
   int trigger_age;
@@ -48,7 +48,7 @@ protected:
     float x, y;
   } position;
 
-  struct
+  struct forces
   {
     float x, y;
   } force;

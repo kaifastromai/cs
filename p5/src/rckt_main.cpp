@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 	Streamer strm;
 	//Setup ofstream for output logging:
 	ofstream log;
-	log.open("log.txt");
+	log.open("log1.txt");
 	Rocket::SetLog(&log);
 
 	curs_set(0);
@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
 	int frame = 0;
 	while (true)
 	{
-		//erase();
+		erase();
 		/* fleet.Birth(initial_up_force);
 		fleet.Step();
 		fleet.Draw();
@@ -86,13 +86,15 @@ int main(int argc, char *argv[])
 		//s.Draw();
 		//s.Step();
 		strm.Draw();
-		r.SetFrame(frame);
-		refresh();
+		//r.SetFrame(frame);
 		frame++;
 		stringstream ss;
 		ss << 23.676768f << endl;
-		*Rocket::log<<ss.str()<<endl;
+		log << frame << endl;
+		cout << "hi mom" << endl;
 		this_thread::sleep_for(chrono::milliseconds(100));
+		//*Rocket::log << "hi mom" << endl;
+		refresh();
 	}
 	curs_set(1);
 	endwin();

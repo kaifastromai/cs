@@ -84,3 +84,9 @@ void Rocket::SetLog(std::ofstream *_log)
 {
 	Rocket::log = _log;
 }
+
+/*Rocket::forces Rocket::GetForce(Rocket::forces force)
+
+{
+	return force;
+}*/

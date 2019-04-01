@@ -1,5 +1,5 @@
 CFLAGS	= -Wall -std=c++11 -g -DDEBUG -I ../include
-LFLAGS	= -lncurses
+LFLAGS	= -lcurses
 CC	    = g++
 
 srcs = $(wildcard *.cpp)

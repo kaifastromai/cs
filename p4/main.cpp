@@ -3,7 +3,6 @@
 #include <curses.h>
 #include <thread>
 #include <chrono>
-
 #include "drop.hpp"
 
 using namespace std;

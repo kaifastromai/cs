@@ -14,17 +14,17 @@ int main(int argc, char *argv[])
     srand((unsigned int)time(nullptr));
     initscr();
 
-    // curs_set(0);
+    curs_set(0);
     while (true)
     {
-        /*  erase();
+         erase();
         storm.Birth();
         storm.Draw();
-        storm.Cull(); */
+        storm.Cull(); 
         box(stdscr, 0, 0);
         mvaddstr(0, 0, " Retro Rain ");
         refresh();
-        // this_thread::sleep_for(chrono::milliseconds(100));
+        this_thread::sleep_for(chrono::milliseconds(100));
     }
     endwin();
     return 0;

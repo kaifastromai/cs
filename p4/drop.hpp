@@ -12,6 +12,8 @@ struct Drop
         int l, c;
     } center;
     int age;
+    int offsetx;
+    int offsety;
 
     static const int MAXIMUM_AGE = 3;
 };

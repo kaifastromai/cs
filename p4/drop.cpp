@@ -16,7 +16,7 @@ Drop::Drop()
 void Drop::Draw()
 {
 	//mvaddstr(center.l - 4, center.c + 4, std::to_string(age).c_str());
-
+	
 	if (age != MAXIMUM_AGE)
 	{
 

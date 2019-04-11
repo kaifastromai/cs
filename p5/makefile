@@ -1,8 +1,8 @@
 CFLAGS	= -Wall -std=c++11 -g -DDEBUG -I ../include
-LFLAGS	= -lcurses
+LFLAGS	= -lncurses
 CC	    = g++
 
-srcs = $(wildcard *.cpp)
+srcs = $(wildcard src/*.cpp)
 objs = $(srcs:.cpp=.o)
 deps = $(srcs:.cpp=.d)
 
@@ -23,3 +23,4 @@ clean:
 
 
 -include $(deps)
+

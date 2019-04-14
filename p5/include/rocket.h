@@ -1,37 +1,41 @@
-#include <iostream>
+#pragma once
+#include <limits>
 #include <vector>
-#include "math.h"
 #include <fstream>
-#include "../include/trn_axis.h"
+#include "/usr/include/curses.h"
+#include <curses>
+
+/*	frand() is defined in main.cpp.
+*/
+
+float frand();
 
 class Rocket
 {
 public:
   Rocket();
   virtual ~Rocket();
+
   void SetTriggerAge(int i);
   void SetAgeLimit(int i);
   void SetPosition(Rocket &other);
+  void SetPosition(float x, float y);
   void SetForce(float x, float y);
   virtual void Draw();
-  virtual void Step();
+  virtual void Step(std::vector<Rocket *> &v);
+  virtual void Trigger(std::vector<Rocket *> &v);
 
   int GetAge();
   bool IsAlive();
   bool IsTriggered();
 
   static void SetGravity(float g);
-  static void SetLogFile(std::ofstream *log_file);
-  static void SetVector(std::vector<Rocket *> *);
-
-  virtual void Trigger();
 
 protected:
   int age;
   int age_limit;
   int trigger_age;
 
-  // Nameless structs - see specification
   struct
   {
     float x, y;
@@ -43,6 +47,4 @@ protected:
   } force;
 
   static float gravity;
-  static std::ofstream *log_file;
-  static std::vector<Rocket *> *rockets;
 };

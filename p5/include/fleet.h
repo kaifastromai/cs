@@ -1,7 +1,7 @@
 #pragma once
-#include "..\include\rocket.h"
-#include "..\include\streamer.h"
-#include "..\include\palm_tree.h"
+#include "../include/rocket.h"
+#include "../include/streamer.h"
+#include "../include/palm_tree.h"
 
 class Fleet
 {
@@ -15,7 +15,7 @@ public:
 		details are all hidden within Birth(). Birth() calls the Factory 
 		method which does the actual birthing.
 
-		Rockets are dynamically allocated. Therefore must be freeed when culled.
+		Rockets are dynamically allocated. Therefore must be freed when culled.
 	*/
 	void Birth(float initial_up_force);
 

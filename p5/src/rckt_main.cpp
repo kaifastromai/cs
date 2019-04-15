@@ -1,10 +1,10 @@
 #include <thread>
 #include <chrono>
 #include <ctime>
-#include "..\include\rocket.h"
-#include "..\include\streamer.h"
-#include "..\include\palm_tree.h"
-#include "..\include\fleet.h"
+#include "../include/rocket.h"
+#include "../include/streamer.h"
+#include "../include/palm_tree.h"
+#include "../include/fleet.h"
 
 using namespace std;
 

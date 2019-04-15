@@ -2,8 +2,7 @@
 #include <limits>
 #include <vector>
 #include <fstream>
-#include "/usr/include/curses.h"
-#include <curses>
+#include "curses.h"
 
 /*	frand() is defined in main.cpp.
 */

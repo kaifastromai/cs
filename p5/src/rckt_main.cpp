@@ -5,6 +5,7 @@
 #include "../include/streamer.h"
 #include "../include/palm_tree.h"
 #include "../include/fleet.h"
+#include "../include/sparkler.h"
 
 using namespace std;
 
@@ -30,6 +31,7 @@ float frand()
 
 int main(int argc, char *argv[])
 {
+	initscr();
 	float initial_up_force = 4.0;
 	srand((unsigned int)time(nullptr));
 	Fleet fleet;
@@ -44,14 +46,21 @@ int main(int argc, char *argv[])
 		initial_up_force = stof(argv[1]);
 	}
 
-	initscr();
+	Rocket r;
+	Sparkler s;
+	Streamer strm;
+	//Setup ofstream for output logging:
+	ofstream log;
+	log.open("log.txt");
+	Rocket::SetLog(&log);
+
 	curs_set(0);
 	/*	Gravity is the pervasive down force and is constant for all
 		rockets. Because it is the same for all rockets, it is declared
 		as a static. Rocket::SetGravity() is likewise a static method
 		within Rocket.
 	*/
-	Rocket::SetGravity(-0.2);
+	Rocket::SetGravity(-0.1);
 
 	/*	A Fleet object manages (and hides the details of) the collection
 		of Rockets. The flow here is:
@@ -62,19 +71,31 @@ int main(int argc, char *argv[])
 		- Draw each rocket.
 		- Eliminate rockets that have aged out.
 	*/
+	int frame = 0;
 	while (true)
 	{
-		erase();
-		fleet.Birth(initial_up_force);
+		//erase();
+		/* fleet.Birth(initial_up_force);
 		fleet.Step();
 		fleet.Draw();
-		fleet.Cull();
+		fleet.Cull(); */
 		box(stdscr, 0, 0);
 		mvaddstr(0, 1, " RETRO FIREWORKS ");
+		//r.Draw();
+		//r.Step();
+		//s.Draw();
+		//s.Step();
+		strm.Draw();
+		r.SetFrame(frame);
 		refresh();
-		this_thread::sleep_for(chrono::milliseconds(40));
+		frame++;
+		stringstream ss;
+		ss << 23.676768f << endl;
+		*Rocket::log<<ss.str()<<endl;
+		this_thread::sleep_for(chrono::milliseconds(100));
 	}
 	curs_set(1);
 	endwin();
+
 	return 0;
 }

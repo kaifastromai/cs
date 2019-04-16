@@ -1,4 +1,4 @@
-CFLAGS	= -Wall -std=c++11 -g -DDEBUG -I ../include
+CFLAGS	= -Wall -std=c++17 -g -DDEBUG -I ../include
 LFLAGS	= -lncurses
 CC	    = g++
 

@@ -1,0 +1,700 @@
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+
+Coords: 1, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+Coords: 0, 5
+23.6768
+

@@ -65,6 +65,7 @@
         "thread": "cpp",
         "iomanip": "cpp",
         "xlocmon": "cpp",
-        "xloctime": "cpp"
+        "xloctime": "cpp",
+        "cstdarg": "cpp"
     }
 }

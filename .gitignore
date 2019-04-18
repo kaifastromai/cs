@@ -1,0 +1,7 @@
+#Visual studio
+*.out
+*.ipch
+.vscode/
+*.obj
+zip/
+pat_azure.txt

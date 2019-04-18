@@ -1,12 +1,13 @@
 CFLAGS	= -Wall -std=c++11 -g -DDEBUG -I ../include
 LFLAGS	= -lncurses
 CC	    = g++
+BIN     =../bin
 
 srcs = $(wildcard src/*.cpp)
 objs = $(srcs:.cpp=.o)
 deps = $(srcs:.cpp=.d)
 
-a.out: $(objs)
+a.out:$(objs)
 	$(CC) $^ -o $@ $(LFLAGS)
 
 

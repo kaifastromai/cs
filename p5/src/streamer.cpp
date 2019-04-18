@@ -7,17 +7,19 @@ void Streamer::Trigger()
 }
 void Streamer::Draw()
 {
+	*log << "Ratio lines/cols: " << LINES / COLS << std::endl;
+	*log << "Ratio cols/lines:" << COLS / LINES << std::endl;
 
-	for (size_t i = 1; i <= 8; i++)
+	for (size_t i = 1; i <= 16; i++)
 	{
-		float x = std::sin(TAU * (1 / 8) * i);
-		float y = 5 * std::cos(2 * M_PIf32 * (1 / 8) * i);
+		float lc_ratio = LINES / COLS;
+		float cl_ratio = COLS / LINES;
+		float x = 10 * std::sin(TAU * (1.0f / 16.0f) * i); //I think we need to give this a scale factor..
+		float y = 5 * std::cos(TAU * (1.0f / 16.0f) * i);
 		std::stringstream ss;
-		ss << "Coords: " << (1 / i) << ", " << y << std::endl;
-		*log<<ss.str();
-		/*
-		mvaddch(LINES - 5 * std::sin(2 * M_PIf32 * (1 / 8) * i) - 10,
-				COLS / 2 + 5 * std::cos(2 * M_PIf32 * (1 / 8) * i), '*');
-		mvaddch(LINES - i, i, '*'); */
+		//*log << "Coords: " << x << ", " << y << std::endl;
+
+		mvaddch(LINES / 2 - y, COLS / 2 + x, '*');
+		//mvaddch(LINES - i, i, '*');
 	}
 }

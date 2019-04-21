@@ -5,3 +5,5 @@
 *.obj
 zip/
 pat_azure.txt
+*.txt
+*.code-workspace

@@ -2,10 +2,20 @@
 #include "../include/rocket.h"
 #include "../include/streamer.h"
 #include "../include/palm_tree.h"
+#include "../include/finale.h"
 
 class Fleet
 {
+
 public:
+	/*This runs the birth(),Step(),Draw(),Cull() loop, with the probability of birth a new Rocket
+	represented by chanceAtBirth, (float from 0-100). It also takes in initial_up_force to pass
+	into the birth function
+	*/
+	void Run(float chance_at_birth, float initial_up_force);
+	float g = Rocket::GetGravity();
+	//An enum for the possible types of rockets
+
 	/*	Cull() is responsible for removing Rockets whose age has risen to
 		the age limit specified in the Factory method.
 	*/
@@ -28,7 +38,7 @@ public:
 	*/
 	void Draw();
 
-private:
+public:
 	/*	This may be your first Design Pattern. It implements the Factory pattern.
 		https://www.geeksforgeeks.org/design-patterns-set-2-factory-method/
 

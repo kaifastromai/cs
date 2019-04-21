@@ -1,30 +1,25 @@
-CFLAGS	= -Wall -std=c++17 -g -DDEBUG -I ../include
+CXX		  := g++
+CXX_FLAGS := -Wall -std=c++17 -ggdb
+
+BIN		:= bin
+SRC		:= src
+INCLUDE	:= include
+LIB		:= lib
 LFLAGS	= -lncurses
-CC	    = g++
-BIN		=bin
-OBJ=$(BIN)
-SRC=src
 
-srcs = $(wildcard src/*.cpp)
-objs = $(srcs:%.cpp=%.o)
-#objs:=$(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(srcs))
-deps = $(srcs:.cpp=.d)
 
-bin/a.out:$(objs)
-	$(CC) $^ -o $@ $(LFLAGS)
+LIBRARIES	:=
+EXECUTABLE	:= main
 
-bin/%.o:%.cpp
 
-bin/%.o:%.cpp
-	$(CC) -MMD -MP $(CFLAGS) -c $< -o $@
+all: $(BIN)/$(EXECUTABLE).out
 
-.PHONY: clean
+run: clean all
+	clear
+	./$(BIN)/$(EXECUTABLE)
 
-# $(RM) is rm -f by default
+$(BIN)/$(EXECUTABLE): $(SRC)/*.cpp
+	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES) $(LFLAGS)
 
 clean:
-	$(RM) $(objs) $(deps) bin/a.out core
-
-
--include $(deps)
-
+	-rm $(BIN)/*

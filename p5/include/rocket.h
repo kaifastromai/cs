@@ -5,14 +5,27 @@
 #include <fstream>
 #include "curses.h"
 #include <sstream>
+#include <cmath>
+#include <algorithm>
+#include <tuple>
+#include "../include/util.storm.h"
 
 /*	frand() is defined in main.cpp.
 */
 
 float frand();
-
+enum Rocket_Type
+{
+  IE_Rocket,
+  IE_Palm_Tree,
+  IE_Streamer,
+  IE_DoubleStreamer
+};
 class Rocket
 {
+public:
+  inline static bool IS_DEBUG_MODE;
+
 public:
   Rocket();
   virtual ~Rocket();
@@ -21,13 +34,18 @@ public:
   void SetPosition(Rocket &other);
   void SetPosition(float x, float y);
   void SetForce(float x, float y);
-  void SetFrame(int f);
-  virtual void Draw();
-  //virtual void Step(std::vector<Rocket *> &v);``
-  virtual void Step();
+  void SetColor(int cc);
+  int GetColor();
+  static float GetGravity();
+  std::tuple<float, float> GetForce();
 
-  //virtual void Trigger(std::vector<Rocket *> &v);
-  virtual void Trigger();
+  static void SetFrame(int f);
+  virtual void Draw();
+  virtual void Step(std::vector<Rocket *> &v);
+  //virtual void Step();
+
+  virtual void Trigger(std::vector<Rocket *> &v);
+  //virtual void Trigger();
 
   int GetAge();
   bool IsAlive();
@@ -35,13 +53,31 @@ public:
 
   static void SetGravity(float g);
   static void SetLog(std::ofstream *_log);
-  static void Log(const std::stringstream &message);
+  //Log to output file
+  static void Log()
+  {
+    *log << std::endl;
+  }
+
+  template <typename First, typename... Strings>
+  static void Log(First arg, const Strings &... rest)
+  {
+    if (IS_DEBUG_MODE)
+    {
+      *log << arg;
+      Log(rest...);
+    }
+  }
+
   inline static std::ofstream *log;
 
-public:
+protected:
   int age;
   int age_limit;
   int trigger_age;
+  bool isTriggered;
+  static int log_max_lines;
+  int color_code;
 
   struct
   {

@@ -2,6 +2,9 @@
 #include "rocket.h"
 class Sparkler : public Rocket
 {
-  public:
-	void Draw();
+public:
+  void Draw();
+
+private:
+  bool isStar = true;
 };

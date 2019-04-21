@@ -1,13 +1,13 @@
 #pragma once
-#include "../include/rocket.h"
+#include "../include/sparkler.h"
 class Streamer : public Rocket
 {
 public:
-	void Draw();
-	virtual void Trigger();
+	//void Draw();
+	virtual void Trigger(std::vector<Rocket *> &v);
 };
 class DoubleStreamer : public Streamer
 {
 public:
-	virtual void Trigger();
+	virtual void Trigger(std::vector<Rocket *> &v);
 };

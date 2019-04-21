@@ -1,9 +1,9 @@
 #pragma once
-#include "rocket.h"
+#include "../include/sparkler.h"
 class PalmTree : public Rocket
 {
-  public:
+public:
 	~PalmTree();
 	static std::vector<std::pair<float, float>> v1;
-	virtual void Trigger();
+	virtual void Trigger(std::vector<Rocket *> &v);
 };

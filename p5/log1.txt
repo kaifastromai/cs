@@ -1,7 +1,1 @@
-LINES/COLS: 0.0779221
-COLS/LINES:12.8333
-1
-0, 0
-77, 0
-Force: 0, 0
-Pos: 77, 0
+pointer is invalid

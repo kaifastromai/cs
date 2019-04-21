@@ -6,6 +6,8 @@
 #include "../include/palm_tree.h"
 #include "../include/fleet.h"
 #include "../include/sparkler.h"
+#include "../include/util.storm.h"
+#include <getopt.h>
 
 using namespace std;
 
@@ -31,11 +33,42 @@ float frand()
 
 int main(int argc, char *argv[])
 {
-	initscr();
-	float initial_up_force = 4.0;
-	srand((unsigned int)time(nullptr));
-	Fleet fleet;
+	//Open our log file before anything else--Or else segmantation fault!
+	Rocket r;
+	ofstream log;
+	log.open("log1.txt");
+	Rocket::SetLog(&log);
+	int opt;
+	while ((opt = getopt(argc, argv, "d")) != -1)
+	{
+		switch (opt)
+		{
+		case 'd':
+			Rocket::Log("Debug mode is active");
+			Rocket::IS_DEBUG_MODE = true;
+			break;
+		default: /* '?' */
+			fprintf(stderr, "Usage: %s [-d for debug mode]\n",
+					argv[0]);
+			exit(EXIT_FAILURE);
+		}
+	}
+	/* for (; optind < argc; optind++)
+	{
+		*Rocket::log << argv[optind] << endl;
+	} */
 
+	initscr();
+	//Colors! Must be predefined
+	start_color();
+	init_pair(1, COLOR_RED, COLOR_BLACK);
+	init_pair(2, COLOR_GREEN, COLOR_BLACK);
+	init_pair(3, COLOR_BLUE, COLOR_BLACK);
+	init_pair(4, COLOR_CYAN, COLOR_BLACK);
+	init_pair(5, COLOR_WHITE, COLOR_BLACK);
+	float initial_up_force = 3.0;
+	srand((unsigned int)time(nullptr));
+	//Fleet fleet;
 	/*	If argv[1] is given, it is taken to be a value for the initial
 		up force given to a rocket. The default up force is 4 in this
 		program. If your terminal window is short, use a smaller number.
@@ -43,16 +76,37 @@ int main(int argc, char *argv[])
 	*/
 	if (argc > 1)
 	{
-		initial_up_force = stof(argv[1]);
+		if (optind <= 2 && optind >= 1)
+		{
+			if (argv[optind] != nullptr)
+			{
+				string str(argv[optind]);
+
+				try
+				{
+					if (!utils::safe_string_to_float(str, initial_up_force))
+					{
+						throw runtime_error("Did not manage to convert to float");
+					}
+					else
+					{
+
+						Rocket::Log("23 and me is the best: ", 5, " in the world!");
+					}
+				}
+				catch (runtime_error &e)
+				{
+					Rocket::Log(e.what());
+				}
+			}
+		}
+		else
+		{
+			*Rocket::log << "Wrong command line arguments!" << endl;
+		}
 	}
 
-	Rocket r;
-	Sparkler s;
-	Streamer strm;
 	//Setup ofstream for output logging:
-	ofstream log;
-	log.open("log1.txt");
-	Rocket::SetLog(&log);
 
 	curs_set(0);
 	/*	Gravity is the pervasive down force and is constant for all
@@ -60,7 +114,7 @@ int main(int argc, char *argv[])
 		as a static. Rocket::SetGravity() is likewise a static method
 		within Rocket.
 	*/
-	Rocket::SetGravity(-0.1);
+	Rocket::SetGravity(-0.2);
 
 	/*	A Fleet object manages (and hides the details of) the collection
 		of Rockets. The flow here is:
@@ -71,29 +125,21 @@ int main(int argc, char *argv[])
 		- Draw each rocket.
 		- Eliminate rockets that have aged out.
 	*/
+
+	Fleet flt;
 	int frame = 0;
 	while (true)
 	{
 		erase();
-		/* fleet.Birth(initial_up_force);
-		fleet.Step();
-		fleet.Draw();
-		fleet.Cull(); */
+		flt.Run(12, initial_up_force);
+		attron(COLOR_PAIR(1));
 		box(stdscr, 0, 0);
 		mvaddstr(0, 1, " RETRO FIREWORKS ");
-		//r.Draw();
-		//r.Step();
-		//s.Draw();
-		//s.Step();
-		strm.Draw();
-		//r.SetFrame(frame);
+		//Increment frame as simulation increases. Mostly for debugging purposes.
+		//s.Draw();		//s.Step(t_v);
+		Rocket::SetFrame(frame);
 		frame++;
-		stringstream ss;
-		ss << 23.676768f << endl;
-		log << frame << endl;
-		cout << "hi mom" << endl;
-		this_thread::sleep_for(chrono::milliseconds(100));
-		//*Rocket::log << "hi mom" << endl;
+		this_thread::sleep_for(chrono::milliseconds(40));
 		refresh();
 	}
 	curs_set(1);

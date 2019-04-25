@@ -3,6 +3,7 @@
 #include "../include/streamer.h"
 #include "../include/palm_tree.h"
 #include "../include/finale.h"
+#include <deque>
 
 class Fleet
 {
@@ -13,7 +14,7 @@ public:
 	into the birth function
 	*/
 	void Run(float chance_at_birth, float initial_up_force);
-	float g = Rocket::GetGravity();
+	inline static float g = -0.2f;
 	//An enum for the possible types of rockets
 
 	/*	Cull() is responsible for removing Rockets whose age has risen to
@@ -53,5 +54,5 @@ public:
 		all subclasses of Rocket, they can live on the same vector and be called / used
 		in the same way.
 	*/
-	std::vector<Rocket *> rockets;
+	std::deque<Rocket *> rockets;
 };

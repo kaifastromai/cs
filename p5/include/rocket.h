@@ -29,6 +29,10 @@ public:
 public:
   Rocket();
   virtual ~Rocket();
+  /**
+    Set the age at which the Rocket will trigger
+    @param i The age to set the trigger  to
+  */
   void SetTriggerAge(int i);
   void SetAgeLimit(int i);
   void SetPosition(Rocket &other);

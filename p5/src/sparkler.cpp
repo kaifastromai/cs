@@ -1,6 +1,7 @@
 #include "../include/sparkler.h"
 void Sparkler::Draw()
 {
+	attron(COLOR_PAIR(color_code));
 	if (isStar)
 	{
 		mvaddch(LINES - position.y, position.x, '*');

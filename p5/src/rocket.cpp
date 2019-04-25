@@ -10,7 +10,6 @@ Rocket::Rocket()
 	force = {0.5, 2.0};
 	isTriggered = false;
 	color_code = 5;
-	IS_DEBUG_MODE = false;
 }
 Rocket::~Rocket()
 {
@@ -19,7 +18,7 @@ Rocket::~Rocket()
 void Rocket::Draw()
 {
 	attron(COLOR_PAIR(color_code));
-	//*log << position.x << ", " << position.y << std::endl;
+	Rocket::Log("Color code is: ", color_code);
 	mvaddch(LINES - std::round(position.y), std::round(position.x), '*');
 }
 //The Step() method foes forward one frame and does the necessary physics calculations
@@ -75,7 +74,7 @@ int Rocket::GetAge()
 //bools
 bool Rocket::IsAlive()
 {
-	return age < age_limit;
+	return age <= age_limit;
 }
 bool Rocket::IsTriggered()
 {

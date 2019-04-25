@@ -8,6 +8,7 @@
 #include "../include/sparkler.h"
 #include "../include/util.storm.h"
 #include <getopt.h>
+#include "../include/grid.h"
 
 using namespace std;
 
@@ -44,8 +45,8 @@ int main(int argc, char *argv[])
 		switch (opt)
 		{
 		case 'd':
-			Rocket::Log("Debug mode is active");
 			Rocket::IS_DEBUG_MODE = true;
+			Rocket::Log("Debug mode is active");
 			break;
 		default: /* '?' */
 			fprintf(stderr, "Usage: %s [-d for debug mode]\n",
@@ -114,6 +115,7 @@ int main(int argc, char *argv[])
 		as a static. Rocket::SetGravity() is likewise a static method
 		within Rocket.
 	*/
+
 	Rocket::SetGravity(-0.2);
 
 	/*	A Fleet object manages (and hides the details of) the collection
@@ -131,8 +133,10 @@ int main(int argc, char *argv[])
 	while (true)
 	{
 		erase();
-		flt.Run(12, initial_up_force);
-		attron(COLOR_PAIR(1));
+		Grid grid(13, 50, 0);
+		grid.Draw();
+		//flt.Run(12, initial_up_force);
+		attron(COLOR_PAIR(4));
 		box(stdscr, 0, 0);
 		mvaddstr(0, 1, " RETRO FIREWORKS ");
 		//Increment frame as simulation increases. Mostly for debugging purposes.

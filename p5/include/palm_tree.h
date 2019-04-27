@@ -5,5 +5,5 @@ class PalmTree : public Rocket
 public:
 	~PalmTree();
 	static std::vector<std::pair<float, float>> v1;
-	virtual void Trigger(std::vector<Rocket *> &v);
+	virtual void Trigger(std::deque<Rocket *> &v);
 };

@@ -1,7 +1,16 @@
+#pragma once
 #include "rocket.h"
-class Finale : public Rocket
+#include "../include/grid.h"
+#include "../include/streamer.h"
+#include "../include/palm_tree.h"
+class Finale
 {
-  public:
+	//This is hopefully epic!
+public:
 	Finale();
+	void Run();
 	~Finale();
+	Grid *grid;
+	std::deque<Rocket *> rockets;
+	void Step();
 };

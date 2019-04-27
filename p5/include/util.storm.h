@@ -4,9 +4,13 @@
 #include <chrono>
 #include <exception>
 #include <sstream>
+#include "../include/vector.h"
+#include "../include/magnet_rocket.h"
+namespace csl
+{
 class utils
 {
-
+private:
 public:
     template <class T>
     //Add/subtracts maxDiff as a percentage of the whole:
@@ -35,6 +39,7 @@ public:
         // initialize the random number generator with time-dependent seed
         uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
         std::seed_seq ss{uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32)};
+
         rng.seed(ss);
         if constexpr (std::is_same_v<T, int>)
         {
@@ -78,4 +83,48 @@ public:
             return false;
         }
     }
+
+    static bool approximatelyEqual(float a, float b, float epsilon)
+    {
+        return std::abs(a - b) <= ((std::abs(a) < std::abs(b) ? std::abs(b) : std::abs(a)) * epsilon);
+    }
+
+    static bool essentiallyEqual(float a, float b, float epsilon)
+    {
+        return std::abs(a - b) <= ((std::abs(a) > std::abs(b) ? std::abs(b) : std::abs(a)) * epsilon);
+    }
+
+    static bool definitelyGreaterThan(float a, float b, float epsilon)
+    {
+        return (a - b) > ((std::abs(a) < std::abs(b) ? std::abs(b) : std::abs(a)) * epsilon);
+    }
+
+    static bool definitelyLessThan(float a, float b, float epsilon)
+    {
+        return (b - a) > ((std::abs(a) < std::abs(b) ? std::abs(b) : std::abs(a)) * epsilon);
+    }
+    class physics
+    {
+    public:
+        //Generic physical attraction force between two objects given influence c1 and c2, respectively
+        static Vector get_attraction_force(Vector pos1, Vector pos2, float c1 = 1.0f, float c2 = 200, float p_coef = 9e9)
+        {
+            float coef = p_coef;
+            Vector r = pos2 - pos1;
+            Vector f_particle = ((coef * c1 * c2) / r.Mag2()) * (r.Unit());
+            return f_particle;
+        };
+        static void attract_to_location(Vector location, MagnetRocket &r, float c1 = 1.0f, float c2 = 100, float p_coef = 100)
+        {
+            Vector force(get_attraction_force(r.position, location, c1, c2, p_coef));
+            r.force = force;
+        };
+        static void attract_to_location(Vector location, MagnetRocket *r, float c1 = 1.0f, float c2 = 100, float p_coef = 100)
+        {
+            Vector force(get_attraction_force(r->position, location, c1, c2, p_coef));
+            r->force = force;
+        };
+    };
 };
+
+} // namespace csl

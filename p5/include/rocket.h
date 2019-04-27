@@ -8,10 +8,9 @@
 #include <cmath>
 #include <algorithm>
 #include <tuple>
-#include "../include/util.storm.h"
-
-/*	frand() is defined in main.cpp.
-*/
+#include <deque>
+//#include "../include/util.storm.h"
+#include "../include/vector.h"
 
 float frand();
 enum Rocket_Type
@@ -28,6 +27,8 @@ public:
 
 public:
   Rocket();
+  Rocket(Vector pos, Vector force);
+
   virtual ~Rocket();
   /**
     Set the age at which the Rocket will trigger
@@ -45,10 +46,11 @@ public:
 
   static void SetFrame(int f);
   virtual void Draw();
-  virtual void Step(std::vector<Rocket *> &v);
+  virtual void Step(std::deque<Rocket *> &v);
+  virtual void Step();
   //virtual void Step();
 
-  virtual void Trigger(std::vector<Rocket *> &v);
+  virtual void Trigger(std::deque<Rocket *> &v);
   //virtual void Trigger();
 
   int GetAge();
@@ -61,15 +63,17 @@ public:
   static void Log()
   {
     *log << std::endl;
-  }
-
+  };
   template <typename First, typename... Strings>
   static void Log(First arg, const Strings &... rest)
   {
-    if (IS_DEBUG_MODE)
+    if (log->is_open())
     {
-      *log << arg;
-      Log(rest...);
+      if (IS_DEBUG_MODE)
+      {
+        *log << arg;
+        Log(rest...);
+      }
     }
   }
 
@@ -83,15 +87,14 @@ protected:
   static int log_max_lines;
   int color_code;
 
-  struct
-  {
-    float x, y;
-  } position;
+public:
+  Vector position;
+  Vector force;
 
-  struct forces
+  struct pvector
   {
     float x, y;
-  } force;
+  };
 
   inline static float gravity;
   inline static int frame;

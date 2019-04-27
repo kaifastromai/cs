@@ -9,6 +9,9 @@
 #include "../include/util.storm.h"
 #include <getopt.h>
 #include "../include/grid.h"
+#include "../include/finale.h"
+
+#include <cmath>
 
 using namespace std;
 
@@ -22,32 +25,35 @@ using namespace std;
 	This will return in values from 3.5 to 4.5.
 */
 
-float frand()
-{
-	return float(rand()) / float(RAND_MAX) - 0.5f;
-}
-
 /*	main()
 
-	The program currently offers no means of termination other than CNTRL-c.
+	The program currently offers no Pmeans of termination other than CNTRL-c.
 */
-
 int main(int argc, char *argv[])
 {
+	bool is_finale = false;
 	//Open our log file before anything else--Or else segmantation fault!
 	Rocket r;
 	ofstream log;
 	log.open("log1.txt");
 	Rocket::SetLog(&log);
 	int opt;
-	while ((opt = getopt(argc, argv, "d")) != -1)
+	while ((opt = getopt(argc, argv, "df")) != -1)
 	{
 		switch (opt)
 		{
 		case 'd':
+		{
 			Rocket::IS_DEBUG_MODE = true;
 			Rocket::Log("Debug mode is active");
 			break;
+		}
+		case 'f':
+		{
+			is_finale = true;
+			Rocket::Log("Finale has been activated!");
+			break;
+		}
 		default: /* '?' */
 			fprintf(stderr, "Usage: %s [-d for debug mode]\n",
 					argv[0]);
@@ -74,10 +80,11 @@ int main(int argc, char *argv[])
 		up force given to a rocket. The default up force is 4 in this
 		program. If your terminal window is short, use a smaller number.
 		If your terminal window is very tall, try a larger number.
+
 	*/
-	if (argc > 1)
+	if (argc > 1) //Checking argc and consuming arguments
 	{
-		if (optind <= 2 && optind >= 1)
+		if (optind <= 3 && optind >= 1)
 		{
 			if (argv[optind] != nullptr)
 			{
@@ -85,7 +92,7 @@ int main(int argc, char *argv[])
 
 				try
 				{
-					if (!utils::safe_string_to_float(str, initial_up_force))
+					if (!csl::utils::safe_string_to_float(str, initial_up_force))
 					{
 						throw runtime_error("Did not manage to convert to float");
 					}
@@ -103,11 +110,9 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			*Rocket::log << "Wrong command line arguments!" << endl;
+			*Rocket::log << "Wrong command line arguments!:" << optind << endl;
 		}
 	}
-
-	//Setup ofstream for output logging:
 
 	curs_set(0);
 	/*	Gravity is the pervasive down force and is constant for all
@@ -115,7 +120,6 @@ int main(int argc, char *argv[])
 		as a static. Rocket::SetGravity() is likewise a static method
 		within Rocket.
 	*/
-
 	Rocket::SetGravity(-0.2);
 
 	/*	A Fleet object manages (and hides the details of) the collection
@@ -128,22 +132,51 @@ int main(int argc, char *argv[])
 		- Eliminate rockets that have aged out.
 	*/
 
-	Fleet flt;
+	/* Fleet flt;
+	Finale f; */
+	std::deque<Rocket *> t_dq;
+
 	int frame = 0;
+	for (int k = 0; k < 12; k++)
+	{
+		int offsetx = csl::utils::Jiggle<int>(COLS / 2, 100);
+		int offsety = csl::utils::Jiggle<int>(LINES / 2, 100);
+		MagnetRocket *mr = new MagnetRocket(Vector(offsetx, offsety), Vector(0.0, 0.0));
+		mr->mass = 1;
+		t_dq.push_back(mr);
+	}
+
 	while (true)
 	{
 		erase();
-		Grid grid(13, 50, 0);
-		grid.Draw();
-		//flt.Run(12, initial_up_force);
+		/* if (!is_finale)
+		{
+			flt.Run(12, initial_up_force);
+		} */
+		//f.Run();
 		attron(COLOR_PAIR(4));
 		box(stdscr, 0, 0);
 		mvaddstr(0, 1, " RETRO FIREWORKS ");
+		/* for (auto mr : t_dq)
+		{
+			mr->Draw();
+			mr->Step(t_dq);
+			csl::physics::attract_to_location(Vector(COLS / 2, LINES / 2), (MagnetRocket *)mr);
+
+		} */
+		Vector a(0.02, 0.02);
+		Vector b(0.04, 0.04);
+		if (a == b)
+		{
+			Rocket::Log("They are equal!");
+		}
+
+		//Rocket::Log("Position: ", (string)mr.position, " Force: ", (string)mr.force);
 		//Increment frame as simulation increases. Mostly for debugging purposes.
-		//s.Draw();		//s.Step(t_v);
 		Rocket::SetFrame(frame);
 		frame++;
 		this_thread::sleep_for(chrono::milliseconds(40));
+
 		refresh();
 	}
 	curs_set(1);

@@ -1,12 +1,11 @@
 #include "../include/fleet.h"
-#include "../include/util.storm.h"
 #include <cmath>
 
 void Fleet::Run(float chance_at_birth, float initial_up_force)
 {
     try
     {
-        if (utils::weighted_bool(chance_at_birth))
+        if (csl::utils::weighted_bool(chance_at_birth))
         {
             Birth(initial_up_force);
         }
@@ -31,7 +30,7 @@ void Fleet::Cull()
                 auto item = std::find(rockets.begin(), rockets.end(), rocket);
                 if (item != rockets.end())
                 {
-                     delete *item;
+                    delete *item;
                     rockets.erase(item);
                 }
             }
@@ -50,7 +49,7 @@ void Fleet::Birth(float initial_up_force)
 }
 void Fleet::Step()
 {
-    std::vector<Rocket *> lcl_rockets;
+    std::deque<Rocket *> lcl_rockets;
     for (Rocket *rocket : rockets)
     {
 
@@ -78,17 +77,17 @@ void Fleet::Draw()
 }
 Rocket *Fleet::RocketFactory(float initial_up_force)
 {
-    Rocket_Type type = Rocket_Type(utils::unif<int>(0, 3));
+    Rocket_Type type = Rocket_Type(csl::utils::unif<int>(0, 3));
 
-    switch (type)
+    switch (Rocket_Type(type))
     {
     case IE_Rocket:
     {
         //*Rocket::log << "normals rockets" << std::endl;
         Rocket *r = new Rocket();
-        r->SetForce(utils::Jiggle(0.4, 30), initial_up_force);
-        r->SetAgeLimit(utils::Jiggle<float>((2 * std::get<1>(r->GetForce()) / -g), 25));
-        r->SetPosition(utils::Jiggle<float>(COLS / 2, 50), 0);
+        r->SetForce(csl::utils::Jiggle(0.4, 30), initial_up_force);
+        r->SetAgeLimit(csl::utils::Jiggle<float>((2 * std::get<1>(r->GetForce()) / -g), 25));
+        r->SetPosition(csl::utils::Jiggle<float>(COLS / 2, 50), 0);
         return r;
         break;
     }
@@ -97,12 +96,12 @@ Rocket *Fleet::RocketFactory(float initial_up_force)
         // *Rocket::log << "palm Tree" << std::endl;
         PalmTree *p = new PalmTree();
         p->SetColor(3);
-        p->SetForce(utils::unif<int>(-1, 1) * utils::Jiggle<float>(1, 50), utils::Jiggle<int>(initial_up_force, 50));
+        p->SetForce(csl::utils::unif<int>(-1, 1) * csl::utils::Jiggle<float>(1, 50), csl::utils::Jiggle<int>(initial_up_force, 50));
         auto forcev = p->GetForce();
         p->SetAgeLimit(((std::get<1>(forcev)) / -g));
-        p->SetPosition(utils::Jiggle<int>(COLS / 2, 100), 0);
+        p->SetPosition(csl::utils::Jiggle<int>(COLS / 2, 100), 0);
         p->SetTriggerAge((std::get<1>(forcev)) / 0.2);
-        // p->SetTriggerAge(utils::Jiggle<int>(20, 40));
+        // p->SetTriggerAge(csl::utils::Jiggle<int>(20, 40));
         return p;
         break;
     }
@@ -110,10 +109,10 @@ Rocket *Fleet::RocketFactory(float initial_up_force)
     {
         //*Rocket::log << "streamer" << std::endl;
         Streamer *s = new Streamer();
-        s->SetForce(utils::unif<int>(-1, 1) * utils::Jiggle<float>(1, 50), utils::Jiggle<int>(initial_up_force, 50));
+        s->SetForce(csl::utils::unif<int>(-1, 1) * csl::utils::Jiggle<float>(1, 50), csl::utils::Jiggle<int>(initial_up_force, 50));
         auto forcev = s->GetForce();
         s->SetAgeLimit((std::get<1>(forcev)) / 0.2f);
-        s->SetPosition(utils::Jiggle<int>(COLS / 2, 100), 0);
+        s->SetPosition(csl::utils::Jiggle<int>(COLS / 2, 100), 0);
         s->SetTriggerAge((std::get<1>(forcev)) / 0.2f);
         return s;
         break;
@@ -122,10 +121,10 @@ Rocket *Fleet::RocketFactory(float initial_up_force)
     {
 
         DoubleStreamer *ds = new DoubleStreamer();
-        ds->SetForce(utils::unif<int>(-1, 1) * utils::Jiggle<float>(1, 50), utils::Jiggle<int>(initial_up_force, 50));
+        ds->SetForce(csl::utils::unif<int>(-1, 1) * csl::utils::Jiggle<float>(1, 50), csl::utils::Jiggle<int>(initial_up_force, 50));
         auto forcev = ds->GetForce();
         ds->SetAgeLimit((std::get<1>(forcev)) / 0.2f);
-        ds->SetPosition(utils::Jiggle<int>(COLS / 2, 100), 0);
+        ds->SetPosition(csl::utils::Jiggle<int>(COLS / 2, 100), 0);
         ds->SetTriggerAge((std::get<1>(forcev)) / 0.2f);
         return ds;
         break;

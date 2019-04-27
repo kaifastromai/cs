@@ -7,3 +7,4 @@ zip/
 pat_azure.txt
 *.txt
 *.code-workspace
+/p5/.vs/

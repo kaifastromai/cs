@@ -1,5 +1,4 @@
 #include "../include/rocket.h"
-//Install team chat so I we can communicate
 Rocket::Rocket()
 {
 	trigger_age = std::numeric_limits<int>::max();
@@ -10,6 +9,18 @@ Rocket::Rocket()
 	force = {0.5, 2.0};
 	isTriggered = false;
 	color_code = 5;
+	//mvaddstr(LINES/2, COLS/2, "how does this not work?");
+}
+Rocket::Rocket(Vector p, Vector f)
+{
+	trigger_age = std::numeric_limits<int>::max();
+	age = 0;
+	age_limit = 5;
+	force = {0.5, 2.0};
+	isTriggered = false;
+	color_code = 5;
+	position = p;
+	force = f;
 }
 Rocket::~Rocket()
 {
@@ -18,15 +29,14 @@ Rocket::~Rocket()
 void Rocket::Draw()
 {
 	attron(COLOR_PAIR(color_code));
-	Rocket::Log("Color code is: ", color_code);
 	mvaddch(LINES - std::round(position.y), std::round(position.x), '*');
 }
 //The Step() method foes forward one frame and does the necessary physics calculations
 //and checks of we have reached the trigger age, at which point it will call the trigger
 //method, passing by reference a vector of rockets
-void Rocket::Step(std::vector<Rocket *> &v)
+void Rocket::Step(std::deque<Rocket *> &v)
 {
-	if (age == trigger_age)
+if (age == trigger_age)
 	{
 		Trigger(v);
 	}
@@ -38,11 +48,20 @@ void Rocket::Step(std::vector<Rocket *> &v)
 	position.x = position.x + force.x;
 	force.y += gravity;
 }
+
+void Rocket::Step()
+{
+	age++;
+	position += force;
+	force.y += gravity;
+}
+
 void Rocket::SetAgeLimit(int i)
 {
 	this->age_limit = i;
+	
 }
-void Rocket::Trigger(std::vector<Rocket *> &v)
+void Rocket::Trigger(std::deque<Rocket *> &v)
 {
 }
 //setters

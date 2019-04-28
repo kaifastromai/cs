@@ -7,7 +7,8 @@
 struct Vector
 {
 public:
-    inline static double EPSILON = 0.02;
+    //A constant to use in omparisons
+    inline static float EPSILON;
     Vector(float in_x = 0, float in_y = 0)
     {
         x = in_x;
@@ -28,7 +29,7 @@ public:
     }
     float Mag()
     {
-        return std::sqrt((this->x) * (this->x) + (this->x) * (this->x));
+        return std::sqrt((this->x) * (this->x) + (this->y) * (this->y));
     }
     float Mag2()
     {
@@ -38,10 +39,11 @@ public:
 
     Vector Unit()
     {
-        float mag = Mag(*this);
+        float mag = Mag();
         Vector v = Vector(this->x / mag, this->y / mag);
         return v;
     };
+    
     static Vector Unit(Vector &v)
     {
         float mag = Mag(v);
@@ -99,7 +101,11 @@ public:
     {
         return Vector(v.x / val, v.y / val);
     };
-    friend bool operator==(Vector &v1, Vector &v2);
+    friend bool operator==(Vector &v1, Vector v2);
+    friend bool operator<(Vector &v1, Vector &v2);
+    friend bool operator>(Vector &v1, Vector v2);
+    friend bool operator<=(Vector &v1, Vector v2);
+    friend bool operator>=(Vector &v1, Vector &v2);
 
     operator std::string() const
     {

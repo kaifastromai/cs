@@ -39,8 +39,11 @@ void Fleet::Cull()
         {
             throw std::runtime_error("pointer is invalid");
         }
+        
     }
+    
 }
+
 
 void Fleet::Birth(float initial_up_force)
 {

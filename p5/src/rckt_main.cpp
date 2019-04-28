@@ -132,20 +132,12 @@ int main(int argc, char *argv[])
 		- Eliminate rockets that have aged out.
 	*/
 
-	/* Fleet flt;
-	Finale f; */
-	std::deque<Rocket *> t_dq;
+	//Fleet flt;
+	Finale f;
+	std::deque<MagnetRocket *> t_dq;
 
 	int frame = 0;
-	for (int k = 0; k < 12; k++)
-	{
-		int offsetx = csl::utils::Jiggle<int>(COLS / 2, 100);
-		int offsety = csl::utils::Jiggle<int>(LINES / 2, 100);
-		MagnetRocket *mr = new MagnetRocket(Vector(offsetx, offsety), Vector(0.0, 0.0));
-		mr->mass = 1;
-		t_dq.push_back(mr);
-	}
-
+	Vector::EPSILON = 0.2f;
 	while (true)
 	{
 		erase();
@@ -153,24 +145,11 @@ int main(int argc, char *argv[])
 		{
 			flt.Run(12, initial_up_force);
 		} */
-		//f.Run();
+		f.Run();
+
 		attron(COLOR_PAIR(4));
 		box(stdscr, 0, 0);
 		mvaddstr(0, 1, " RETRO FIREWORKS ");
-		/* for (auto mr : t_dq)
-		{
-			mr->Draw();
-			mr->Step(t_dq);
-			csl::physics::attract_to_location(Vector(COLS / 2, LINES / 2), (MagnetRocket *)mr);
-
-		} */
-		Vector a(0.02, 0.02);
-		Vector b(0.04, 0.04);
-		if (a == b)
-		{
-			Rocket::Log("They are equal!");
-		}
-
 		//Rocket::Log("Position: ", (string)mr.position, " Force: ", (string)mr.force);
 		//Increment frame as simulation increases. Mostly for debugging purposes.
 		Rocket::SetFrame(frame);
@@ -180,6 +159,7 @@ int main(int argc, char *argv[])
 		refresh();
 	}
 	curs_set(1);
+
 	endwin();
 
 	return 0;

@@ -11,10 +11,9 @@ public:
     Vector pos;
     //methods
 public:
-    FiberNode(float posx = 0, float posy = 0)
+    FiberNode(Vector pos)
     {
-        this->pos.x = posx;
-        this->pos.y = posy;
+        this->position = pos;
     }
     void Draw()
     {

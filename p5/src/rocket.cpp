@@ -93,19 +93,11 @@ int Rocket::GetAge()
 //bools
 bool Rocket::IsAlive()
 {
-	return age <= age_limit;
+	return age > age_limit;
 }
 bool Rocket::IsTriggered()
 {
-	if (age >= trigger_age)
-	{
-		isTriggered = true;
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return age >= trigger_age;
 }
 
 void Rocket::SetLog(std::ofstream *_log)

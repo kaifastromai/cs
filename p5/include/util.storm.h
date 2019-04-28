@@ -103,6 +103,12 @@ public:
     {
         return (b - a) > ((std::abs(a) < std::abs(b) ? std::abs(b) : std::abs(a)) * epsilon);
     }
+    static bool nearly_equal(float v, float v1, float epsilon = 4.0f)
+    {
+        return std::abs(std::abs(v1) - std::abs(v)) < epsilon;
+        ;
+    }
+    //Physics class definitions.
     class physics
     {
     public:
@@ -111,15 +117,15 @@ public:
         {
             float coef = p_coef;
             Vector r = pos2 - pos1;
-            Vector f_particle = ((coef * c1 * c2) / r.Mag2()) * (r.Unit());
+            Vector f_particle = (r.Mag2() / (coef * c1 * c2)) * (r.Unit());
             return f_particle;
         };
-        static void attract_to_location(Vector location, MagnetRocket &r, float c1 = 1.0f, float c2 = 100, float p_coef = 100)
+        static void attract_to_location(Vector location, MagnetRocket &r, float c1 = 1.0f, float c2 = 1, float p_coef = 10000)
         {
             Vector force(get_attraction_force(r.position, location, c1, c2, p_coef));
             r.force = force;
         };
-        static void attract_to_location(Vector location, MagnetRocket *r, float c1 = 1.0f, float c2 = 100, float p_coef = 100)
+        static void attract_to_location(Vector location, MagnetRocket *r, float c1 = 1.0f, float c2 = 10, float p_coef = 100)
         {
             Vector force(get_attraction_force(r->position, location, c1, c2, p_coef));
             r->force = force;

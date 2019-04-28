@@ -16,11 +16,15 @@ public:
         isTriggered = false;
         color_code = 5;
         position = p;
+        attraction_source = {COLS / 2, LINES / 2};
     };
+    void AttractToSource();
     inline static const float d_t = 1;
     Vector momentum;
     Vector velocity;
+    Vector attraction_source;
 
     float mass; //It's like a gravitational orbit!
-    void Step(std::deque<Rocket *> &d);
+    void Step(std::deque<MagnetRocket *> &d);
+    void Step();
 };

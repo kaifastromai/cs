@@ -6,16 +6,17 @@
 #include <curses.h>
 #include "../include/rocket.h"
 #include <deque>
-#include "../include/sparkler.h"
+#include "../include/magnet_rocket.h"
 class Grid : public Rocket
 {
 
 public:
-    Grid(float dimx = 4, float dimy = 4, int seperation = 0);
+    Grid(int dimx = 4, int dimy = 4, int seperation = 0);
     ~Grid();
     void AttractToGrid(std::deque<Rocket *> rs);
     void DrawFlag();
-    void DrawCircle(std::deque<Rocket *> &d, int r, Vector ref_pos);
+    void DrawCircle(int r, Vector ref_pos);
+    void SimulateMagnets();
     struct
     {
 
@@ -25,6 +26,7 @@ public:
 
 protected:
     std::vector<std::vector<FiberNode *>> grid;
+    std::deque<MagnetRocket *> mrs;
 
 public:
     void Draw(std::deque<Rocket *> &v);

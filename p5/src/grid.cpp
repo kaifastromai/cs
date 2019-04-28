@@ -1,8 +1,9 @@
 #include "../include/grid.h"
 #include "../include/util.storm.h"
+
 #define TAU (M_PI * 2)
 
-Grid::Grid(float dimx, float dimy, int seperation)
+Grid::Grid(int dimx, int dimy, int seperation)
 {
 
     trigger_age = std::numeric_limits<int>::max();
@@ -24,7 +25,7 @@ Grid::Grid(float dimx, float dimy, int seperation)
         {
             int l_posy = LINES / 2 - i + dimy / 2;
             int l_posx = COLS / 2 + j - dimx / 2;
-            FiberNode *fbr = new FiberNode(l_posx, l_posy);
+            FiberNode *fbr = new FiberNode(Vector(l_posx, l_posy));
             fbr->index.x = inx;
             fbr->index.y = iny;
             inx++;
@@ -69,16 +70,12 @@ void Grid::Simulate(int &phase, float speed, float magnitude)
 }
 void Grid::Trigger(std::deque<Rocket *> &v)
 {
-    std::deque<Rocket *> lcl_rockets = v;
-    for (auto lcl_rckt : lcl_rockets)
+    for (auto lcl_rckt : v)
     {
-        int r = (LINES / 6) * (COLS / 6) / 3;
-        Vector vec(lcl_rckt->position.x, lcl_rckt->position.y);
-        DrawCircle(v, r, vec);
+        int r = (LINES / 6) * (COLS / 6) / 8;
+        DrawCircle(r, Vector(lcl_rckt->position.x, lcl_rckt->position.y));
     }
-}
-void Grid::AttractToGrid(std::deque<Rocket *> rs)
-{
+    v.insert(v.begin(), mrs.begin(), mrs.end());
 }
 void Grid::DrawFlag()
 {
@@ -110,7 +107,7 @@ void Grid::DrawFlag()
         }
     }
 }
-void Grid::DrawCircle(std::deque<Rocket *> &d, int r, Vector ref_pos)
+void Grid::DrawCircle(int r, Vector ref_pos)
 {
     for (int i = 1; i <= r; i++)
     {
@@ -119,19 +116,31 @@ void Grid::DrawCircle(std::deque<Rocket *> &d, int r, Vector ref_pos)
         //*Rocket::log << "Force x: " << r.force.x << ", " << r.force.y << std::endl;
         //*log << "Pos: x" << r.position.x << ", y:" << r.position.y << std::endl;
         //mvaddch(LINES - i, i, '*');
-        float posx = (float)cos(TAU * (1.0f / (float)r) * i) + ref_pos.x;
-        float posy = (float)sin(TAU * (1.0f / (float)r) * i) + ref_pos.y;
-        float fx = 4 * (float)cos(TAU * (1.0f / (float)r) * i);
-        float fy = 4 * (float)sin(TAU * (1.0f / (float)r) * i);
+        Vector pos = {(float)cos(TAU * (1.0f / (float)r) * i) + ref_pos.x,
+                      (float)sin(TAU * (1.0f / (float)r) * i) + ref_pos.y};
+        /* float posx = (float)cos(TAU * (1.0f / (float)r) * i) + ref_pos.x;
+        float posy = (float)sin(TAU * (1.0f / (float)r) * i) + ref_pos.y; */
+        Vector fv = {4 * (float)cos(TAU * (1.0f / (float)r) * i),
+                     4 * (float)sin(TAU * (1.0f / (float)r) * i)};
+        /* float fx = 4 * (float)cos(TAU * (1.0f / (float)r) * i);
+        float fy = 4 * (float)sin(TAU * (1.0f / (float)r) * i); */
         /* float posx = this->position.x+i;
 		float posy = this->position.y+i; */
-        Sparkler *spk = new Sparkler();
-        spk->SetColor(1);
-        spk->SetAgeLimit(csl::utils::Jiggle(20, 40));
-        spk->SetPosition(posx, posy);
+        MagnetRocket *mr = new MagnetRocket(pos, fv);
+        mr->SetColor(1);
+        mr->SetAgeLimit(csl::utils::Jiggle(20, 40));
         /* r->SetForce(1.0f / (1.0f * (float)sin(TAU * (1.0f / 16.0f) * i * 4) + 0.0001f),
 					-1.0f / (1.0f * (float)cos(TAU * (1.0f / 16.0f) * i * 4) + 0.0001f)); */
-        spk->SetForce(fx, fy);
-        d.push_back(spk);
+        mrs.push_back(mr);
+    }
+}
+void Grid::SimulateMagnets()
+{
+    if (age >= trigger_age)
+    {
+        for (auto mr : mrs)
+        {
+            mr->AttractToSource();
+        }
     }
 }

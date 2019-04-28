@@ -7,7 +7,6 @@ Finale::Finale()
     grid->SetAgeLimit(2000);
     grid->SetForce(0, 3);
     grid->Draw(rockets);
-
 }
 void Finale::Run()
 {
@@ -17,6 +16,7 @@ void Finale::Run()
         rckt->Draw();
     }
     grid->Step(rockets);
+    grid->SimulateMagnets();
 }
 void Finale::Step()
 {

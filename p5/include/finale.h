@@ -12,5 +12,6 @@ public:
 	~Finale();
 	Grid *grid;
 	std::deque<Rocket *> rockets;
+
 	void Step();
 };

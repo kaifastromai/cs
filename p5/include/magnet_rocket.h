@@ -1,6 +1,6 @@
 #pragma once
-#include "../include/rocket.h"
-class MagnetRocket : public Rocket
+#include "../include/fiber_node.h"
+class MagnetRocket : public FiberNode
 {
 public:
     MagnetRocket();
@@ -16,15 +16,21 @@ public:
         isTriggered = false;
         color_code = 5;
         position = p;
-        attraction_source = {COLS / 2, LINES / 2};
+        attraction_source = {0, 0};
     };
     void AttractToSource();
     inline static const float d_t = 1;
     Vector momentum;
     Vector velocity;
     Vector attraction_source;
+    bool isSettled = false;
 
     float mass; //It's like a gravitational orbit!
     void Step(std::deque<MagnetRocket *> &d);
     void Step();
+    void Draw()
+    {
+        Rocket::Draw();
+    }
+    bool isAtSource();
 };

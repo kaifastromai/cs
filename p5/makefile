@@ -5,7 +5,7 @@ BIN		:= bin
 SRC		:= src
 INCLUDE	:= include
 LIB		:= lib
-LFLAGS	= -lncurses
+LFLAGS	= -lncurses -pthread
 
 
 LIBRARIES	:=

@@ -43,7 +43,7 @@ public:
         Vector v = Vector(this->x / mag, this->y / mag);
         return v;
     };
-    
+
     static Vector Unit(Vector &v)
     {
         float mag = Mag(v);
@@ -67,7 +67,11 @@ public:
         this->x += other.x;
         this->y += other.y;
     };
-    Vector operator-(Vector &other)
+    /*  Vector operator-(Vector &other)
+    {
+        return Vector(this->x - other.x, this->y - other.y);
+    }; */
+    Vector operator-(Vector other)
     {
         return Vector(this->x - other.x, this->y - other.y);
     };

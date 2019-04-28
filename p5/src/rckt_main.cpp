@@ -29,6 +29,7 @@ using namespace std;
 
 	The program currently offers no Pmeans of termination other than CNTRL-c.
 */
+
 int main(int argc, char *argv[])
 {
 	bool is_finale = false;
@@ -138,6 +139,7 @@ int main(int argc, char *argv[])
 
 	int frame = 0;
 	Vector::EPSILON = 0.2f;
+	MagnetRocket mr(Vector(COLS / 2 + 40, LINES / 2 - 50), Vector(0, 0));
 	while (true)
 	{
 		erase();
@@ -150,6 +152,10 @@ int main(int argc, char *argv[])
 		attron(COLOR_PAIR(4));
 		box(stdscr, 0, 0);
 		mvaddstr(0, 1, " RETRO FIREWORKS ");
+
+		/* 	mr.Draw();
+		mr.Step();
+		mr.AttractToSource(); */
 		//Rocket::Log("Position: ", (string)mr.position, " Force: ", (string)mr.force);
 		//Increment frame as simulation increases. Mostly for debugging purposes.
 		Rocket::SetFrame(frame);

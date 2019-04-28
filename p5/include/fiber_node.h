@@ -8,18 +8,23 @@
 class FiberNode : public Rocket
 {
 public:
-    Vector pos;
+    //Vector pos;
     //methods
 public:
+    FiberNode(){
+        position = Vector{0, 0};
+    }
+
     FiberNode(Vector pos)
     {
         this->position = pos;
     }
     void Draw()
     {
-        mvaddch(pos.y, pos.x, '*');
-        pos.x = COLS / 2 + index.x - (COLS / 3) / 2;
-        pos.y = LINES / 2 - index.y + (LINES / 3) / 2;
+
+        //mvaddch(position.y, position.x, '*');
+        position.x = COLS / 2 + index.x - (COLS / 3) / 2;
+        position.y = LINES / 2 - index.y + (LINES / 3) / 2;
     }
     void Step();
 

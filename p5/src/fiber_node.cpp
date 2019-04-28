@@ -2,7 +2,8 @@
 void FiberNode::Step()
 {
     age++;
-    pos.y += force.y;
-    pos.x += force.x;
+    position.y += force.y;
+    position.x += force.x;
     //force.y -= gravity;
+    
 }

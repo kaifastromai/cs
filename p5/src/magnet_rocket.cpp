@@ -36,5 +36,24 @@ void MagnetRocket::Step()
 }
 void MagnetRocket::AttractToSource()
 {
-    csl::utils::physics::attract_to_location(attraction_source, this);
+    if ((int)position.x == (int)attraction_source.x && (int)position.y == (int)attraction_source.y)
+    {
+        if ((int)velocity.x == 0 && (int)velocity.y == 0)
+        {
+            this->velocity = {0, 0};
+            this->momentum = {0, 0};
+            this->position = attraction_source;
+            this->isSettled = true;
+        }
+    }
+
+    else
+    {
+        csl::utils::physics::attract_to_location_spring(attraction_source, this, 0.1, 0, 0.5);
+    }
+}
+
+bool MagnetRocket::isAtSource()
+{
+    return ((int)position.x == (int)attraction_source.x && (int)position.y == (int)attraction_source.y);
 }

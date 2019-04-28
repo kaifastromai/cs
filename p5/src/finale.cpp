@@ -17,6 +17,13 @@ void Finale::Run()
     }
     grid->Step(rockets);
     grid->SimulateMagnets();
+    // grid->SetAttractSources();
+    // grid->DB_DrawSources(rockets);
+    grid->Simulate(Rocket::frame, 1, 3);
+    //Rocket::Log(rockets.size());
+    grid->DrawFlag();
+   // grid->DrawFlagFromParticles();
+    //Rocket::Log(grid->HasSettled());
 }
 void Finale::Step()
 {

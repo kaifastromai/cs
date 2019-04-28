@@ -1,5 +1,7 @@
 #include "../include/grid.h"
 #include "../include/util.storm.h"
+#include <thread>
+#include <future>
 
 #define TAU (M_PI * 2)
 
@@ -16,12 +18,12 @@ Grid::Grid(int dimx, int dimy, int seperation)
     color_code = 5;
     int iny = 0;
 
-    for (int i = 0; i <= (seperation + 1) * dimy; i += (seperation + 1))
+    for (int i = 0; i < (seperation + 1) * dimy; i += (seperation + 1))
     {
-        int inx = 0;
+        int inx = 1;
         std::vector<FiberNode *> v;
 
-        for (int j = 0; j <= (seperation + 1) * dimx; j += (seperation + 1))
+        for (int j = 0; j < (seperation + 1) * dimx; j += (seperation + 1))
         {
             int l_posy = LINES / 2 - i + dimy / 2;
             int l_posx = COLS / 2 + j - dimx / 2;
@@ -46,7 +48,7 @@ void Grid::Draw(std::deque<Rocket *> &v)
     for (int i = 0; i < 3; i++)
     {
         Rocket *r = new Rocket();
-        r->SetForce(1 - i, 5);
+        r->SetForce(3 - 3 * i, 5);
         r->SetPosition(COLS / 2 - 4 + 8 * i, 0);
         r->SetAgeLimit(5 / 0.2);
         v.push_back(r);
@@ -55,73 +57,131 @@ void Grid::Draw(std::deque<Rocket *> &v)
 void Grid::Simulate(int &phase, float speed, float magnitude)
 {
 
-    float angle = 1.0f / (float)dimensions.dimx;
-    for (auto vec_in_grid : grid)
+    if (age > trigger_age)
     {
-        int i = 0;
-        for (auto node_in_vec : vec_in_grid)
+        if (age == trigger_age + 1)
         {
-            float ang = std::cos((2.0f * M_PI * speed * angle) * (float)i - phase);
-            node_in_vec->pos.y += std::round(magnitude * ang) - std::round((i / 16) * std::sin(phase));
-            i++;
-            node_in_vec->Step();
+            SetAttractSources();
+        }
+        Rocket::Log(HasSettled());
+        DrawFlagFromParticles();
+        int j = 0;
+        float angle = 1.0f / (float)dimensions.dimx;
+        for (auto vec_in_grid : grid)
+        {
+            int i = 0;
+            for (auto node_in_vec : vec_in_grid)
+            {
+                float ang = std::cos((2.0f * M_PI * speed * angle) * (float)i - phase);
+                float n_y = std::round(magnitude * ang) - std::round((i / 16) * std::sin(phase));
+                node_in_vec->position.y += n_y;
+                if (age > 37)
+                {
+                    mrs.at(j)->position = node_in_vec->position;
+                }
+                //
+                //Rocket::Log(mrs.at(j)->isSett);
+                i++;
+                node_in_vec->Step();
+                node_in_vec->Draw();
+                j++;
+            }
         }
     }
 }
 void Grid::Trigger(std::deque<Rocket *> &v)
 {
+    int r = (LINES / 3) * (COLS / 3);
+
     for (auto lcl_rckt : v)
     {
-        int r = (LINES / 6) * (COLS / 6) / 8;
         DrawCircle(r, Vector(lcl_rckt->position.x, lcl_rckt->position.y));
     }
-    v.insert(v.begin(), mrs.begin(), mrs.end());
+    // v.insert(v.begin(), mrs.begin(), mrs.end());
 }
 void Grid::DrawFlag()
 {
-    for (auto vec_in_grid : grid)
+    //std::thread
+    if (HasSettled())
     {
-        for (auto node_in_vec : vec_in_grid)
+        for (auto vec_in_grid : grid)
         {
-            float y = node_in_vec->index.x;
-            int mody = fmod(y, 2);
-
-            if (mody == 0)
+            for (auto node_in_vec : vec_in_grid)
             {
+                float y = node_in_vec->index.x;
+                int mody = fmod(y, 2);
 
-                Rocket::Log(mody);
-                attron(COLOR_PAIR(5));
+                if (mody == 0)
+                {
+
+                    //Rocket::Log(mody);
+                    attron(COLOR_PAIR(5));
+                }
+                else if (mody == 1)
+                {
+
+                    attron(COLOR_PAIR(1));
+                }
+
+                if (node_in_vec->index.x >= 8 && node_in_vec->index.y >= 5)
+                {
+                    attron(COLOR_PAIR(3));
+                }
             }
-            else if (mody == 1)
-            {
-
-                attron(COLOR_PAIR(1));
-            }
-
-            if (node_in_vec->index.x >= 8 && node_in_vec->index.y >= 5)
-            {
-                attron(COLOR_PAIR(3));
-            }
-
-            node_in_vec->Draw();
         }
+    }
+}
+void Grid::DrawFlagFromParticles()
+{
+    //std::thread
+
+    for (auto mr : mrs)
+    {
+        float y = mr->index.x;
+        int mody = fmod(y, 2);
+
+        if (mody == 0)
+        {
+
+            //Rocket::Log(mody);
+            //attron(COLOR_PAIR(5));
+            mr->SetColor(5);
+        }
+        else if (mody == 1)
+        {
+
+            mr->SetColor(1);
+        }
+
+        if (mr->index.x >= 8 && mr->index.y >= 5)
+        {
+            // attron(COLOR_PAIR(3));
+            mr->SetColor(3);
+        }
+
+        mr->Draw();
+        mr->Step();
+
+        /*   mr->position.x = COLS / 2 + mr->index.x - (COLS / 3) / 2;
+        mr->position.y = LINES / 2 - mr->index.y + (LINES / 3) / 2; */
     }
 }
 void Grid::DrawCircle(int r, Vector ref_pos)
 {
-    for (int i = 1; i <= r; i++)
+    r /= 3;
+    for (int i = 0; i <= r; i++)
     {
         //*log << i << std::endl;
         //*log << "Coords: " << x << ", " << y << std::endl;
         //*Rocket::log << "Force x: " << r.force.x << ", " << r.force.y << std::endl;
         //*log << "Pos: x" << r.position.x << ", y:" << r.position.y << std::endl;
         //mvaddch(LINES - i, i, '*');
-        Vector pos = {(float)cos(TAU * (1.0f / (float)r) * i) + ref_pos.x,
+        Vector pos = {(float)cos(TAU * (1.0f / (float)r / 3) * i) + ref_pos.x,
                       (float)sin(TAU * (1.0f / (float)r) * i) + ref_pos.y};
         /* float posx = (float)cos(TAU * (1.0f / (float)r) * i) + ref_pos.x;
         float posy = (float)sin(TAU * (1.0f / (float)r) * i) + ref_pos.y; */
-        Vector fv = {4 * (float)cos(TAU * (1.0f / (float)r) * i),
-                     4 * (float)sin(TAU * (1.0f / (float)r) * i)};
+        Vector fv = {20 * (float)cos(TAU * (1.0f / (float)r) * i),
+                     20 * (float)sin(TAU * (1.0f / (float)r) * i)};
         /* float fx = 4 * (float)cos(TAU * (1.0f / (float)r) * i);
         float fy = 4 * (float)sin(TAU * (1.0f / (float)r) * i); */
         /* float posx = this->position.x+i;
@@ -134,6 +194,40 @@ void Grid::DrawCircle(int r, Vector ref_pos)
         mrs.push_back(mr);
     }
 }
+void Grid::DrawCircleOnFrame(int r, Vector ref_pos, std::deque<Rocket *> &rckts)
+{
+    if (age >= trigger_age && age <= (age + r / 18))
+    {
+
+        r /= 3;
+        int part = MagnetRocket::frame % (r / 6);
+        //*log << i << std::endl;
+        //*log << "Coords: " << x << ", " << y << std::endl;
+        //*Rocket::log << "Force x: " << r.force.x << ", " << r.force.y << std::endl;
+        //*log << "Pos: x" << r.position.x << ", y:" << r.position.y << std::endl;
+        //mvaddch(LINES - i, i, '*');
+        for (int i = 0; i <= std::lround(r / 6); i++)
+        {
+            Vector pos = {(float)cos(TAU * (1.0f / (float)r / 3) * part) + ref_pos.x,
+                          (float)sin(TAU * (1.0f / (float)r) * part) + ref_pos.y};
+            /* float posx = (float)cos(TAU * (1.0f / (float)r) * i) + ref_pos.x;
+        float posy = (float)sin(TAU * (1.0f / (float)r) * i) + ref_pos.y; */
+            Vector fv = {4 * (float)cos(TAU * (1.0f / (float)r) * part),
+                         4 * (float)sin(TAU * (1.0f / (float)r) * part)};
+            /* float fx = 4 * (float)cos(TAU * (1.0f / (float)r) * i);
+        float fy = 4 * (float)sin(TAU * (1.0f / (float)r) * i); */
+            /* float posx = this->position.x+i;
+		float posy = this->position.y+i; */
+            MagnetRocket *mr = new MagnetRocket(pos, fv);
+            mr->SetColor(1);
+            mr->SetAgeLimit(csl::utils::Jiggle(20, 40));
+            /* r->SetForce(1.0f / (1.0f * (float)sin(TAU * (1.0f / 16.0f) * i * 4) + 0.0001f),
+					-1.0f / (1.0f * (float)cos(TAU * (1.0f / 16.0f) * i * 4) + 0.0001f)); */
+            mrs.push_back(mr);
+            rckts.push_back(mr);
+        }
+    }
+}
 void Grid::SimulateMagnets()
 {
     if (age >= trigger_age)
@@ -143,4 +237,53 @@ void Grid::SimulateMagnets()
             mr->AttractToSource();
         }
     }
+}
+//Must be called after mrs has been initiliazed!
+void Grid::SetAttractSources()
+{
+    int i = 0;
+
+    for (auto rows : grid)
+    {
+        for (auto cols : rows)
+        {
+
+            mrs.at(i)->attraction_source = cols->position;
+            mrs.at(i)->index = cols->index;
+            i++;
+        }
+    }
+    Rocket::Log(__LINE__, " ", i);
+}
+void Grid::DB_DrawSources(std::deque<Rocket *> &rs)
+{
+    //std::deque<Rocket *> lcl_rckts;
+    if (IS_DEBUG_MODE && age == (trigger_age + 1))
+    {
+        for (auto mr : mrs)
+        {
+            rs.push_back(new MagnetRocket(mr->attraction_source, Vector(0, 0)));
+        }
+    }
+}
+bool Grid::HasSettled()
+{
+    int settled = 0;
+    int unsettled = 0;
+    if (age > trigger_age)
+    {
+        for (auto mr : mrs)
+        {
+            if (!mr->isSettled)
+            {
+                unsettled++;
+            }
+            else
+            {
+                settled++;
+            }
+        }
+        return settled > unsettled + settled * 0.9;
+    }
+    return false;
 }

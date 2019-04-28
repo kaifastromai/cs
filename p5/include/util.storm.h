@@ -8,8 +8,10 @@
 #include "../include/magnet_rocket.h"
 namespace csl
 {
+
 class utils
 {
+
 private:
 public:
     template <class T>
@@ -106,11 +108,40 @@ public:
     static bool nearly_equal(float v, float v1, float epsilon = 4.0f)
     {
         return std::abs(std::abs(v1) - std::abs(v)) < epsilon;
-        ;
     }
+    //interpolate between two values a and b given a fraction f
+   static float lerp(float a, float b, float f)
+    {
+        return (a * (1.0 - f)) + (b * f);
+    }
+    //interpolate Vector values;
+    static Vector lerp(Vector a, Vector b, float f)
+    {
+        return Vector(lerp(a.x, b.x, f), lerp(a.y, b.y, f));
+    }
+    /*  static void spawn_threads(int n,)
+    {
+        std::thread threads[n];
+        // spawn n threads:
+        for (int i = 0; i < n; i++)
+        {
+            threads[i] = thread(doSomething, i + 1);
+        }
+
+        for (auto &th : threads)
+        {
+            th.join();
+        }
+    } */
     //Physics class definitions.
     class physics
     {
+        /*   enum force_type
+        {
+            Spring,
+            Gravity,
+            Electromagnetic
+        }; */
     public:
         //Generic physical attraction force between two objects given influence c1 and c2, respectively
         static Vector get_attraction_force(Vector pos1, Vector pos2, float c1 = 1.0f, float c2 = 200, float p_coef = 9e9)
@@ -120,15 +151,24 @@ public:
             Vector f_particle = (r.Mag2() / (coef * c1 * c2)) * (r.Unit());
             return f_particle;
         };
+        //Attraction force modeled after Ideal Spring Law
+        static Vector get_spring_force(Vector pos1, Vector pos2, float ks = 30, float L0 = 0)
+        {
+            Vector L = pos1 - pos2;
+            float stretch = L.Mag() - L0;
+            Vector f_particle = -ks * stretch * L.Unit();
+            return f_particle;
+        };
         static void attract_to_location(Vector location, MagnetRocket &r, float c1 = 1.0f, float c2 = 1, float p_coef = 10000)
         {
             Vector force(get_attraction_force(r.position, location, c1, c2, p_coef));
             r.force = force;
         };
-        static void attract_to_location(Vector location, MagnetRocket *r, float c1 = 1.0f, float c2 = 10, float p_coef = 100)
+        static void attract_to_location_spring(Vector location, MagnetRocket *r, float ks = 30, float L0 = 0, float dampening = 0.2)
         {
-            Vector force(get_attraction_force(r->position, location, c1, c2, p_coef));
-            r->force = force;
+
+            Vector force(get_spring_force(r->position, location, ks, L0));
+            r->force = force - (r->momentum) * dampening; //Add dampening
         };
     };
 };

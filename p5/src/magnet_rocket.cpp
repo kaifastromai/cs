@@ -14,7 +14,7 @@ MagnetRocket::MagnetRocket()
     velocity = {0, 0};
     force = {0, 0};
     momentum = velocity * mass;
-    attraction_source = {COLS / 2, LINES / 2};
+    attraction_source = {(int)COLS / 2, (int)LINES / 2};
 };
 void MagnetRocket::Step(std::deque<MagnetRocket *> &d)
 {

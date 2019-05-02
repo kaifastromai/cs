@@ -110,7 +110,7 @@ public:
         return std::abs(std::abs(v1) - std::abs(v)) < epsilon;
     }
     //interpolate between two values a and b given a fraction f
-   static float lerp(float a, float b, float f)
+    static float lerp(float a, float b, float f)
     {
         return (a * (1.0 - f)) + (b * f);
     }
@@ -119,6 +119,14 @@ public:
     {
         return Vector(lerp(a.x, b.x, f), lerp(a.y, b.y, f));
     }
+    /* static int factorial(int i)
+    {
+        while (i != 0)
+        {
+            factorial(i);
+            i--;
+        }
+    } */
     /*  static void spawn_threads(int n,)
     {
         std::thread threads[n];

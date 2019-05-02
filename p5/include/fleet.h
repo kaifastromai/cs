@@ -55,5 +55,5 @@ public:
 		all subclasses of Rocket, they can live on the same vector and be called / used
 		in the same way.
 	*/
-	std::deque<Rocket *> rockets;
+	std::vector<Rocket *> rockets;
 };

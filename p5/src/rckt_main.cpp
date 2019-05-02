@@ -28,11 +28,13 @@ using namespace std;
 /*	main()
 
 	The program currently offers no Pmeans of termination other than CNTRL-c.
+
 */
 
 int main(int argc, char *argv[])
 {
 	bool is_finale = false;
+
 	//Open our log file before anything else--Or else segmantation fault!
 	Rocket r;
 	ofstream log;
@@ -47,6 +49,8 @@ int main(int argc, char *argv[])
 		{
 			Rocket::IS_DEBUG_MODE = true;
 			Rocket::Log("Debug mode is active");
+			is_finale = false;
+
 			break;
 		}
 		case 'f':
@@ -135,19 +139,23 @@ int main(int argc, char *argv[])
 
 	//Fleet flt;
 	Finale f;
-	std::deque<MagnetRocket *> t_dq;
-
+	Fleet flt;
 	int frame = 0;
-	Vector::EPSILON = 0.2f;
-	MagnetRocket mr(Vector(COLS / 2 + 40, LINES / 2 - 50), Vector(0, 0));
 	while (true)
 	{
+		if (frame == 600)
+		{
+			is_finale = true;
+		}
 		erase();
-		/* if (!is_finale)
+		if (is_finale == false)
 		{
 			flt.Run(12, initial_up_force);
-		} */
-		f.Run();
+		}
+		else
+		{
+			f.Run();
+		}
 
 		attron(COLOR_PAIR(4));
 		box(stdscr, 0, 0);

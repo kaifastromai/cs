@@ -9,7 +9,7 @@ void Fleet::Run(float chance_at_birth, float initial_up_force)
         {
             Birth(initial_up_force);
         }
-        Cull();
+        //Cull();
         Step();
         Draw();
     }
@@ -21,17 +21,17 @@ void Fleet::Run(float chance_at_birth, float initial_up_force)
 }
 void Fleet::Cull()
 {
-    for (auto rocket : rockets)
+    for (auto rocket : Fleet::rockets)
     {
         if ((rocket) != nullptr)
         {
             if (!rocket->IsAlive())
             {
-                auto item = std::find(rockets.begin(), rockets.end(), rocket);
-                if (item != rockets.end())
+                auto item = std::find(Fleet::rockets.begin(), Fleet::rockets.end(), rocket);
+                if (item != Fleet::rockets.end())
                 {
                     delete *item;
-                    rockets.erase(item);
+                    Fleet::rockets.erase(item);
                 }
             }
         }
@@ -39,43 +39,40 @@ void Fleet::Cull()
         {
             throw std::runtime_error("pointer is invalid");
         }
-        
     }
-    
 }
-
 
 void Fleet::Birth(float initial_up_force)
 {
 
-    rockets.push_back(RocketFactory(initial_up_force));
+    Fleet::rockets.insert(Fleet::rockets.end(), RocketFactory(initial_up_force));
 }
 void Fleet::Step()
 {
     std::deque<Rocket *> lcl_rockets;
-    for (Rocket *rocket : rockets)
+    for (Rocket *rocket : Fleet::rockets)
     {
 
         rocket->Step(lcl_rockets);
     }
     if (!lcl_rockets.empty())
     {
-        rockets.insert(rockets.begin(), lcl_rockets.begin(), lcl_rockets.end());
+        Fleet::rockets.insert(Fleet::rockets.begin(), lcl_rockets.begin(), lcl_rockets.end());
     }
 }
 
 void Fleet::Draw()
 {
-    if (!rockets.empty())
+    if (!Fleet::rockets.empty())
     {
-        for (auto rocket : rockets)
+        for (auto rocket : Fleet::rockets)
         {
             rocket->Draw();
         }
     }
     else
     {
-        Rocket::Log("There are no rockets yet..");
+        Rocket::Log("There are no Fleet::rockets yet..");
     }
 }
 Rocket *Fleet::RocketFactory(float initial_up_force)
@@ -86,7 +83,7 @@ Rocket *Fleet::RocketFactory(float initial_up_force)
     {
     case IE_Rocket:
     {
-        //*Rocket::log << "normals rockets" << std::endl;
+        //*Rocket::log << "normals Fleet::rockets" << std::endl;
         Rocket *r = new Rocket();
         r->SetForce(csl::utils::Jiggle(0.4, 30), initial_up_force);
         r->SetAgeLimit(csl::utils::Jiggle<float>((2 * std::get<1>(r->GetForce()) / -g), 25));

@@ -9,7 +9,7 @@ void Fleet::Run(float chance_at_birth, float initial_up_force)
         {
             Birth(initial_up_force);
         }
-        //Cull();
+        Cull();
         Step();
         Draw();
     }

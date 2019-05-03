@@ -32,3 +32,26 @@ void Finale::Step()
 Finale::~Finale()
 {
 }
+void Finale::Cull()
+{
+
+    for (auto rocket : rockets)
+    {
+        if ((rocket) != nullptr)
+        {
+            if (!rocket->IsAlive())
+            {
+                auto item = std::find(rockets.begin(), rockets.end(), rocket);
+                if (item != rockets.end())
+                {
+                    delete *item;
+                    rockets.erase(item);
+                }
+            }
+        }
+        else
+        {
+            throw std::runtime_error("pointer is invalid");
+        }
+    }
+}

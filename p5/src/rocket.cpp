@@ -93,7 +93,7 @@ int Rocket::GetAge()
 //bools
 bool Rocket::IsAlive()
 {
-	return age > age_limit;
+	return age <= age_limit;
 }
 bool Rocket::IsTriggered()
 {

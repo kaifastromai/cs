@@ -144,12 +144,19 @@ int main(int argc, char *argv[])
 	int frame = 0;
 	while (true)
 	{
-		if (frame == 600)
+		erase();
+		std::stringstream ss;
+		ss << "CURRENT FRAME: " << std::to_string(frame);
+		mvaddstr(2, COLS / 2, ss.str().c_str());
+		if (frame == 600 || is_finale == true)
 		{
 			f.Run();
 		}
 
-		flt.Run(12, initial_up_force);
+		if (!is_finale)
+		{
+			flt.Run(12, initial_up_force);
+		}
 
 		attron(COLOR_PAIR(4));
 		box(stdscr, 0, 0);

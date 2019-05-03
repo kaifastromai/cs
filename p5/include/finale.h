@@ -14,4 +14,5 @@ public:
 	std::deque<Rocket *> rockets;
 
 	void Step();
+	void Cull();
 };

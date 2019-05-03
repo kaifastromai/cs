@@ -50,7 +50,7 @@ void DoubleStreamer::Trigger(std::deque<Rocket *> &v)
 		spk->SetPosition(posx, posy);
 		/* r->SetForce(1.0f / (1.0f * (float)sin(TAU * (1.0f / 16.0f) * i * 4) + 0.0001f),
 					-1.0f / (1.0f * (float)cos(TAU * (1.0f / 16.0f) * i * 4) + 0.0001f)); */
-		spk->SetForce(0.4 * fx, 0.4 * fy);
+		spk->SetForce(force_coef * fx, force_coef* fy);
 		v.push_back(spk);
 	}
 }

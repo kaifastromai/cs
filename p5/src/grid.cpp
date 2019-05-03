@@ -1,5 +1,6 @@
 #include "../include/grid.h"
 #include "../include/util.storm.h"
+#include "../include/streamer.h"
 #include <thread>
 #include <future>
 
@@ -75,7 +76,7 @@ void Grid::Simulate(int &phase, float speed, float magnitude)
                 float ang = std::cos((2.0f * M_PI * speed * angle) * (float)i - phase);
                 float n_y = std::round(magnitude * ang) - std::round((i / 16) * std::sin(phase));
                 node_in_vec->position.y += n_y;
-                if (age > 37)
+                if (age > 100)
                 {
                     mrs.at(j)->position = node_in_vec->position;
                 }
@@ -92,12 +93,22 @@ void Grid::Simulate(int &phase, float speed, float magnitude)
 void Grid::Trigger(std::deque<Rocket *> &v)
 {
     int r = (LINES / 3) * (COLS / 3);
-
+    std::deque<Rocket *> lcl_rckts;
+    int i = 0;
     for (auto lcl_rckt : v)
     {
+        DoubleStreamer *t_s = new DoubleStreamer();
+        t_s->SetPosition(lcl_rckt->position.x, lcl_rckt->position.y);
+        t_s->SetForce(5 - 5 * i, 3);
+        t_s->SetTriggerAge(10);
+        t_s->SetColor(2);
+        t_s->force_coef = 2;
+        lcl_rckts.push_back(t_s);
         DrawCircle(r, Vector(lcl_rckt->position.x, lcl_rckt->position.y));
+        i++;
     }
-    // v.insert(v.begin(), mrs.begin(), mrs.end());
+
+    v.insert(v.begin(), lcl_rckts.begin(), lcl_rckts.end());
 }
 void Grid::DrawFlag()
 {
@@ -171,6 +182,8 @@ void Grid::DrawCircle(int r, Vector ref_pos)
     r /= 3;
     for (int i = 0; i <= r; i++)
     {
+        float force_coef = csl::utils::Jiggle<float>(40, 34);
+
         //*log << i << std::endl;
         //*log << "Coords: " << x << ", " << y << std::endl;
         //*Rocket::log << "Force x: " << r.force.x << ", " << r.force.y << std::endl;
@@ -180,8 +193,8 @@ void Grid::DrawCircle(int r, Vector ref_pos)
                       (float)sin(TAU * (1.0f / (float)r) * i) + ref_pos.y};
         /* float posx = (float)cos(TAU * (1.0f / (float)r) * i) + ref_pos.x;
         float posy = (float)sin(TAU * (1.0f / (float)r) * i) + ref_pos.y; */
-        Vector fv = {20 * (float)cos(TAU * (1.0f / (float)r) * i),
-                     20 * (float)sin(TAU * (1.0f / (float)r) * i)};
+        Vector fv = {force_coef * (float)cos(TAU * (1.0f / (float)r) * i),
+                     force_coef * (float)sin(TAU * (1.0f / (float)r) * i)};
         /* float fx = 4 * (float)cos(TAU * (1.0f / (float)r) * i);
         float fy = 4 * (float)sin(TAU * (1.0f / (float)r) * i); */
         /* float posx = this->position.x+i;

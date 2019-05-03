@@ -11,4 +11,5 @@ class DoubleStreamer : public Streamer
 {
 public:
 	virtual void Trigger(std::deque<Rocket *> &v);
+	float force_coef = 0.4;
 };

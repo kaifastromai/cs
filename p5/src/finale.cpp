@@ -12,7 +12,7 @@ void Finale::Run()
 {
     for (auto rckt : rockets)
     {
-        rckt->Step();
+        rckt->Step(rockets);
         rckt->Draw();
     }
     grid->Step(rockets);
@@ -22,7 +22,7 @@ void Finale::Run()
     grid->Simulate(Rocket::frame, 1, 3);
     //Rocket::Log(rockets.size());
     grid->DrawFlag();
-   // grid->DrawFlagFromParticles();
+    // grid->DrawFlagFromParticles();
     //Rocket::Log(grid->HasSettled());
 }
 void Finale::Step()

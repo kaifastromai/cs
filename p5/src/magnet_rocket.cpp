@@ -49,7 +49,7 @@ void MagnetRocket::AttractToSource()
 
     else
     {
-        csl::utils::physics::attract_to_location_spring(attraction_source, this, 0.1, 0, 0.5);
+        csl::utils::physics::attract_to_location_spring(attraction_source, this, 0.03, 0, 0.5);
     }
 }
 

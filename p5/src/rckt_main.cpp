@@ -139,23 +139,17 @@ int main(int argc, char *argv[])
 
 	//Fleet flt;
 	Finale f;
+	std::deque<MagnetRocket *> t_dq;
 	Fleet flt;
 	int frame = 0;
 	while (true)
 	{
 		if (frame == 600)
 		{
-			is_finale = true;
-		}
-		erase();
-		if (is_finale == false)
-		{
-			flt.Run(12, initial_up_force);
-		}
-		else
-		{
 			f.Run();
 		}
+
+		flt.Run(12, initial_up_force);
 
 		attron(COLOR_PAIR(4));
 		box(stdscr, 0, 0);

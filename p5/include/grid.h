@@ -11,7 +11,7 @@ class Grid : public Rocket
 {
 
 public:
-    Grid(float dimx = 4, float dimy = 4, int seperation = 0);
+    Grid(int dimx = 4, int dimy = 4, int seperation = 0);
     ~Grid();
     void AttractToGrid(std::deque<Rocket *> rs);
     void DrawFlag();
@@ -27,7 +27,7 @@ protected:
     std::vector<std::vector<FiberNode *>> grid;
 
 public:
-    void Draw(std::deque<Rocket *> &v);
+    void  Draw(std::deque<Rocket *> &v);
     void Trigger(std::deque<Rocket *> &v);
     void Simulate(int &phase, float speed = 3, float magnitude = 4);
 };

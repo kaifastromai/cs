@@ -2,7 +2,7 @@
 #include "../include/util.storm.h"
 #define TAU (M_PI * 2)
 
-Grid::Grid(float dimx, float dimy, int seperation)
+Grid::Grid(int dimx, int dimy, int seperation)
 {
 
     trigger_age = std::numeric_limits<int>::max();
